@@ -31,13 +31,7 @@ Route::get('/myDash', function (){
     return Inertia::render('MyDashboard');
 });
 
-Route::get('/project', function () {
-    return Inertia::render('Projects');
-})->name('projects');
-/* Route::middleware('project')->group(function ()
-{
-    Route::get('/')
-}) */
+Route::resource('project', ProjectController::class);
 
 
 
