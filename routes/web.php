@@ -31,9 +31,15 @@ Route::middleware('auth')->group(function () {
 /* MIS RUTAS */
 Route::get('/myDash', function (){
     return Inertia::render('MyDashboard');
-});
+})->name('mydash');
 
-Route::resource('project', ProjectController::class);
+Route::get('/myDash/{project:slug}', [ProjectController::class, 'selectProject'])->name('project.select');
+
+
+
+Route::resource('project', ProjectController::class)->parameters([
+    'project' => 'project:slug',
+]);
 
 
 

@@ -15,6 +15,9 @@
     <Head title="MiDashBoard"/>
     <Suspense>
         <MyLayout>
+            <template #header>
+                Crear Proyecto
+            </template>
             
         </MyLayout>
     </Suspense>

@@ -3,7 +3,21 @@
     import DownArrow from "@/Components/Icons/DownArrow.vue";
     import DropdownX from "@/Components/DropdownX.vue";
     import Dropdown from "@/Components/Dropdown.vue";
-    import {Link} from "@inertiajs/vue3";
+    import {Link, useRemember} from "@inertiajs/vue3";
+    import {ref} from 'vue';
+
+   defineProps({
+        project: {
+            type: Object
+        }
+   })
+
+
+    /* async function select(id){
+        let response = await axios.get(route('project.show', id));
+        let project = response.data;
+        this.project = project;
+    }  */
 </script>
 
 <template>
@@ -15,8 +29,17 @@
             >
             pDoxa
             </a>
-            <ul class="mt-6">                
+            <ul class="mt-6">
+                <li v-if="project" class="relative px-2 py-3">
+                    <Link class="p-1 flex flex-row items-center justify-between bg-blue-400 rounded-md text-white " :href="route('mydash')">
+                        <div class="text-xs">
+                            {{ project.name }}
+                        </div>
+                        <div class="font-bold p-1 mr-2">X</div>
+                    </Link>
+                </li>                
                 <li class="relative px-2 py-3">
+                    <!-- Proyecto -->
                     <DropdownX>
                         <template #trigger>
                             <button class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" @click="togglePagesMenu" aria-haspopup="true">
@@ -24,6 +47,7 @@
                                     <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                         <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
                                     </svg>
+
                                     <span class="ml-4">Proyecto</span>
                                 </span>
                                 <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -33,22 +57,11 @@
                         </template>
                         <template #content>
                             
-                            <ul class="p-2  space-y-2 overflow-hidden text-sm font-medium text-gray-400 rounded-md shadow-inner bg-gray-200 dark:text-gray-400 dark:bg-gray-900" aria-label="submenu">
-                                <li class="px-2 py-1 transition-colors duration-150 hover:text-black dark:hover:text-gray-200">
-                                    <!-- <a class="w-full" href="pages/login.html">Seleccionar Proyecto</a> -->
-                                    <DropdownX
-                                    contentClasses="w-4/5 bg-white ml-2 p-1"
-                                    >
-                                        <template #trigger>
-                                            <button>Proyectos</button>
-                                        </template>
-                                        <template  #content>1er Proyecto</template>
-                                    </DropdownX>
-                                </li>
+                            <ul class="p-2  space-y-2 overflow-hidden text-sm font-medium text-gray-600 rounded-md shadow-inner bg-gray-200 dark:text-gray-400 dark:bg-gray-900" aria-label="submenu">                                
                                 <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/create-account.html">
+                                    <Link class="w-full" :href="route('project.create')">
                                         Crear Proyecto
-                                    </a>
+                                    </Link>
                                 </li>                           
                             </ul>
                         </template>
@@ -57,49 +70,75 @@
                 </li>
             </ul>
             <ul>
-                <li class="relative px-6 py-3">
-                <a
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="forms.html"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                    ></path>
-                    </svg>
-                    <span class="ml-4">Forms</span>
-                </a>
+                <li v-if="project" class="relative px-6 py-3">
+                    <!-- Aulas -->
+                    <DropdownX>
+                        <template #trigger>
+                            <button
+                                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                href="forms.html"
+                            >
+                                <svg
+                                class="w-5 h-5"
+                                aria-hidden="true"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                >
+                                <path
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                                ></path>
+                                </svg>
+                                <span class="ml-4">Aula</span>
+                            </button>
+                        </template>
+
+                        <template #content>
+                            <ul>
+                                <li>Crear Aula</li>
+                                <li>Lista de Aulas</li>
+                            </ul>
+
+                        </template>
+                    </DropdownX>
+                
                 </li>
-                <li class="relative px-6 py-3">
-                <a
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="cards.html"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path
-                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                    ></path>
-                    </svg>
-                    <span class="ml-4">Cards</span>
-                </a>
+                <li v-if="project" class="relative px-6 py-3">
+                    <!-- Secciones -->
+                    <DropdownX >
+                        <template #trigger>
+                            <button
+                                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                href="cards.html"
+                            >
+                                <svg
+                                class="w-5 h-5"
+                                aria-hidden="true"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                >
+                                <path
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                                ></path>
+                                </svg>
+                                <span class="ml-4">Seccion</span>
+                            </button>
+                        </template>
+
+                        <template #content>
+                            <ul>
+                                <li>Crear Aula</li>
+                                <li>Lista de Aulas</li>
+                            </ul>
+                        </template>
+                    </DropdownX>
                 </li>
                 <li class="relative px-6 py-3">
                 <a

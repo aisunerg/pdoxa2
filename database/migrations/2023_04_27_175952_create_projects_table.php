@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->bigInteger('pensum_id');
             $table->string('academic_period', 10);
             $table->date('date');

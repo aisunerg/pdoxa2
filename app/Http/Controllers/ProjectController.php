@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function selectProject(Project $project)
+    {
+        return Inertia::render('Project/selectProject', [
+            'LoadProject' => $project,
+        ]);
+    }
+
     public function index()
     {
         return Project::all();
@@ -20,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Project/createProject');
     }
 
     /**
@@ -36,7 +41,10 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return $project;
+        /* return Inertia::render('MyDashboard', [
+            'LoadProject' => $project,
+        ]); */
     }
 
     /**

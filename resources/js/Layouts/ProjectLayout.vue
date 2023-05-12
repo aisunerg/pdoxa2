@@ -1,5 +1,5 @@
 <script setup>
-    import Asidebar from "@/Layouts/Components/Asidebar.vue";
+    import ProjectAsidebar from "@/Layouts/Components/ProjectAsidebar.vue";
     import Dropdown from "@/Components/Dropdown.vue";
 
     defineProps({
@@ -14,7 +14,7 @@
 <template>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" >
     <!-- Desktop sidebar -->
-    <Asidebar :project="SelectProject"/>
+    <ProjectAsidebar :project="SelectProject"/>
     
     <!-- Backdrop -->
     <div class="flex flex-col flex-1 w-full">

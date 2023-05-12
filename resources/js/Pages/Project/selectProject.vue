@@ -1,15 +1,21 @@
 <script setup>
-    import MyLayout from '@/Layouts/MyLayout.vue';
+    import ProjectLayout from '@/Layouts/ProjectLayout.vue';
     import { Head } from '@inertiajs/vue3';
+
+    defineProps({
+        LoadProject: {
+            type: Object,
+        },
+    });
 </script>
 
 <template>
     <Head title="MiDashBoard"/>
-    <MyLayout>
+    <ProjectLayout :SelectProject="LoadProject">
         <template #header>
-            Projects
+            Trabajando en {{ LoadProject.name }}
         </template>
-        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+        <!-- <div class="w-full overflow-hidden rounded-lg shadow-xs">
               <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
                   <thead>
@@ -25,7 +31,6 @@
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <!-- Avatar with inset shadow -->
                           <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                             <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy">
                             <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
@@ -68,7 +73,7 @@
                 </table>
               </div>
               
-            </div>
-    </MyLayout>
+            </div> -->
+    </ProjectLayout>
     
 </template>
