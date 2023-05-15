@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PensumController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ Route::get('/myDash/{project:slug}', [ProjectController::class, 'selectProject']
 Route::resource('project', ProjectController::class)->parameters([
     'project' => 'project:slug',
 ]);
+
+Route::resource('pensum', PensumController::class);
 
 
 

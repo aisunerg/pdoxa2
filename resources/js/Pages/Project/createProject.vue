@@ -3,6 +3,7 @@
     import { Head } from '@inertiajs/vue3';
     import axios from 'axios';
     import { computed, onMounted, onUnmounted, ref } from 'vue';
+import formProject from '@/Pages/Project/formProject.vue';
 
     
 
@@ -12,13 +13,13 @@
 </script>
 
 <template>
-    <Head title="MiDashBoard"/>
+    <Head title="Crear Proyecto"/>
     <Suspense>
         <MyLayout>
             <template #header>
                 Crear Proyecto
             </template>
-            
+            <formProject />
         </MyLayout>
     </Suspense>
     
