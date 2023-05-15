@@ -6,11 +6,15 @@
     import {router, Link} from "@inertiajs/vue3";
     import {ref} from 'vue';
 
-   
+    defineProps({
+        project: {
+            type: Object,
+            default: null
+        }
+   })
 
     const cod = await axios.get(route('project.index'));
 
-    let project = ref(null);
 
     function redirect(cods) {
         router.post(route('project.select', cods))
@@ -27,7 +31,15 @@
             >
             pDoxa
             </a>
-            <ul class="mt-6">           
+            <ul class="mt-6"> 
+                <li v-if="project" class="relative px-2 py-3">
+                    <Link class="p-1 flex flex-row items-center justify-between bg-blue-400 rounded-md text-white " :href="route('mydash')">
+                        <div class="text-xs">
+                            {{ project.name }}
+                        </div>
+                        <div class="font-bold p-1 mr-2">X</div>
+                    </Link>
+                </li>           
                 <li class="relative px-2 py-3">
                     <!-- Proyecto -->
                     <DropdownX>
@@ -48,9 +60,10 @@
                         <template #content>
                             
                             <ul class="p-2  space-y-2 overflow-hidden text-sm font-medium text-gray-600 rounded-md shadow-inner bg-gray-200 dark:text-gray-400 dark:bg-gray-900" aria-label="submenu">
-                                <li class="px-2 py-1 transition-colors duration-150 hover:text-black dark:hover:text-gray-200">
+                                
+                                <li v-if="!project" class="px-2 py-1 transition-colors duration-150 hover:text-black dark:hover:text-gray-200">
                                     
-                                    <DropdownX
+                                    <DropdownX 
                                     contentClasses="w-4/5 bg-white ml-2 p-1"
                                     >
                                         <template #trigger>
