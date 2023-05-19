@@ -33,7 +33,23 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+
+        $project = new Project;
+        $slug = str_replace(" ", "-", $request->name);
+
+        $project->name = $request->name;
+        $project->slug = $slug;
+        $project->pensum_id = $request->pensum;
+        $project->academic_period = $request->lapso;
+        $project->date = $request->fecha;
+        $project->date_memo = $request->fecha;
+        $project->observations = '';
+
+        $project->save();
+
+        return inertia('myDashboard', [
+            'status' => 'El proyecto fue Creado',
+        ]);
     }
 
     /**

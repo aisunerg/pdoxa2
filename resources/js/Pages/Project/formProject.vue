@@ -6,10 +6,23 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import axios from 'axios';
+import { ref } from 'vue';
 
 const responseP = await axios.get(route('pensum.index'));
 
 const pensums = responseP.data;
+
+var namePensum = ref(null);
+
+function selPensum (pensum, name){
+    form.pensum = pensum;
+
+    pensums.forEach(element => {
+        if (element.id == pensum) {
+            namePensum = name;
+        }
+    });
+}
 
 const form = useForm({
     name: '',
@@ -45,16 +58,27 @@ const createProject = () => {
                 value="Pensum"                 
             />
             
-           <Dropdown>
+           <div class="">
+            <Dropdown
+                contentClasses="bg-gray-400"
+                align="left" 
+            >
                 <template #trigger>
-                    Elije un pensum
+                    <button type="button" class="p-1 border w-48 bg-white text-left rounded-lg">
+                        <div v-if="namePensum">{{ namePensum }}</div>
+                        <div v-else>Elige el pensum</div>
+                    </button>
                 </template>
                 <template #content>
-                    <div class="cursor-pointer hover:bg-slate-200" v-for="pensum in pensums" :key="pensum.id">
+                    
+                    <div class="hover:bg-slate-200 cursor-pointer" @click="selPensum(pensum.id, pensum.name)" v-for="pensum in pensums" :key="pensum.id">
                         {{ pensum.name }}
                     </div>
+                    
+                    
                 </template>
-           </Dropdown>
+            </Dropdown>
+           </div>
 
             <InputError class="mt-2" :message="form.errors.pensum" />
         </div>

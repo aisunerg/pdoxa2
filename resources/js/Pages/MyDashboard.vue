@@ -4,7 +4,12 @@
     import axios from 'axios';
     import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-    
+    defineProps({
+        status: {
+            type: String,
+            default: null
+        },
+    });
 
     onMounted(() => {        
         console.log('CARGADO')
@@ -15,7 +20,7 @@
     <Head title="MiDashBoard"/>
     <Suspense>
         <MyLayout>
-            
+            <div class="bg"></div>
         </MyLayout>
     </Suspense>
     
