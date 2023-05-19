@@ -13,7 +13,7 @@
         }
    })
 
-    const cod = await axios.get(route('project.index'));
+    const cod = await axios.get(route('indexProject'));
 
 
     function redirect(cods) {
@@ -25,12 +25,12 @@
 <template>
     <aside class="z-20 hidden w-56 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
         <div class="py-4 text-gray-500 dark:text-gray-400">
-            <a
+            <Link
             class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-            href="#"
+            :href="route('mydash')"
             >
             pDoxa
-            </a>
+            </Link>
             <ul class="mt-6"> 
                 <li v-if="project" class="relative px-2 py-3">
                     <Link class="p-1 flex flex-row items-center justify-between bg-blue-400 rounded-md text-white " :href="route('mydash')">
@@ -84,6 +84,11 @@
                                         </template>
                                     </DropdownX>
                                 </li>
+                                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    <Link class="w-full" :href="route('project.index')">
+                                        Proyectos
+                                    </Link>
+                                </li>                           
                                 <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                                     <Link class="w-full" :href="route('project.create')">
                                         Crear Proyecto

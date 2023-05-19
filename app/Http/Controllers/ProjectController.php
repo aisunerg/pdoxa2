@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pensum;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,6 +17,14 @@ class ProjectController extends Controller
     }
 
     public function index()
+    {
+        return inertia('Project/indexProjects', [
+            'projects' => Project::all(),
+            'pensums' => Pensum::all(),
+        ]);
+    }
+
+    public function indexProject()
     {
         return Project::all();
     }
@@ -47,9 +56,7 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return inertia('myDashboard', [
-            'status' => 'El proyecto fue Creado',
-        ]);
+        return to_route('mydash')->with('message', 'Proyecto Creado Exitosamente');
     }
 
     /**
@@ -84,6 +91,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $eliminado = $project->name;
+        $project->delete();
+        return to_route('project.index')->with('message', 'Se ha eliminado el proyecto: "'.$eliminado.'"');
     }
 }

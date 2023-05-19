@@ -4,12 +4,7 @@
     import axios from 'axios';
     import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-    defineProps({
-        status: {
-            type: String,
-            default: null
-        },
-    });
+    
 
     onMounted(() => {        
         console.log('CARGADO')
@@ -20,7 +15,9 @@
     <Head title="MiDashBoard"/>
     <Suspense>
         <MyLayout>
-            <div class="bg"></div>
+            <div v-if="$page.props.flash.message" class="bg-green-300 w-full p-2 rounded-lg">
+                {{ $page.props.flash.message }}
+            </div>
         </MyLayout>
     </Suspense>
     

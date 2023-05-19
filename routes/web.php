@@ -34,14 +34,16 @@ Route::get('/myDash', function (){
     return Inertia::render('MyDashboard');
 })->name('mydash');
 
+
+
+//PROJECTS
 Route::get('/myDash/{project:slug}', [ProjectController::class, 'selectProject'])->name('project.select');
-
-
-
 Route::resource('project', ProjectController::class)->parameters([
     'project' => 'project:slug',
 ]);
+Route::get('indexProject', [ProjectController::class, 'indexProject'])->name('indexProject');
 
+//PENSUMS
 Route::resource('pensum', PensumController::class);
 
 
