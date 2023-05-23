@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Career;
 use App\Models\Pensum;
 use Illuminate\Http\Request;
 
 class PensumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    
+    public function indexPensum()
     {
         return pensum::all();
+    }
+
+    public function index()
+    {
+        return inertia('Pensum/indexPensums', [
+            'pensums' => Pensum::all(),
+            'careers' => Career::all(),
+        ]);
     }
 
     /**
@@ -20,7 +27,7 @@ class PensumController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Pensum/createPensum');    
     }
 
     /**
@@ -28,7 +35,15 @@ class PensumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pensum = new Pensum();
+
+        $pensum->name = $request->name;
+        $pensum->career_id = $request->career;
+        $pensum->regime = $request->regime;
+        $pensum->creation_date = '2000-01-01';
+
+        $pensum->save();
+        return to_route('mydash')->with('message', 'Pensum Creado Exitosamente');
     }
 
     /**
@@ -60,6 +75,8 @@ class PensumController extends Controller
      */
     public function destroy(Pensum $pensum)
     {
-        //
+        $eliminado = $pensum->name;
+        $pensum->delete();
+        return to_route('pensum.index')->with('message', 'Se ha eliminado el pensum: "'.$eliminado.'" con exito');
     }
 }

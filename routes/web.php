@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AreaController;
+use App\Http\Controllers\CareerController;
 use App\Http\Controllers\PensumController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -7,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ProjectController;
+use App\Models\Area;
 
 // Login de Laravel
 Route::get('/', function () {
@@ -45,8 +48,18 @@ Route::get('indexProject', [ProjectController::class, 'indexProject'])->name('in
 
 //PENSUMS
 Route::resource('pensum', PensumController::class);
+Route::get('indexPensum', [ProjectController::class, 'indexPensum'])->name('indexPensum');
 
+//CAREERS
+Route::resource('career', CareerController::class);
+Route::get('indexCareer', [CareerController::class, 'indexCareer'])->name('indexCareer');
 
+//AREAS
+Route::resource('area', AreaController::class);
+Route::get('indexArea', [AreaController::class, 'indexArea'])->name('indexArea');
+
+//USER
+Route::get('userIndex', [ProfileController::class, 'indexUser'])->name('indexUser');
 
 
 

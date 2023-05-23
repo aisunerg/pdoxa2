@@ -2,23 +2,18 @@
     import MyLayout from '@/Layouts/MyLayout.vue';
     import { Head } from '@inertiajs/vue3';
     import { computed, onMounted, onUnmounted, ref } from 'vue';
-import formProject from '@/Pages/Project/formProject.vue';
+    import formArea from '@/Pages/Area/formArea.vue';
 
-    
-
-    onMounted(() => {        
-        console.log('CARGADO')
-    });
 </script>
 
 <template>
-    <Head title="Crear Proyecto"/>
+    <Head title="Crear Area"/>
     <Suspense>
         <MyLayout>
             <template #header>
-                Crear Proyecto
+                Crear Area
             </template>
-            <formProject />
+            <formArea />
         </MyLayout>
     </Suspense>
     

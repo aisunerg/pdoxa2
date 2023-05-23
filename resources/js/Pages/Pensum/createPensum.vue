@@ -2,7 +2,7 @@
     import MyLayout from '@/Layouts/MyLayout.vue';
     import { Head } from '@inertiajs/vue3';
     import { computed, onMounted, onUnmounted, ref } from 'vue';
-import formProject from '@/Pages/Project/formProject.vue';
+import formPensum from '@/Pages/Pensum/formPensum.vue';
 
     
 
@@ -12,13 +12,13 @@ import formProject from '@/Pages/Project/formProject.vue';
 </script>
 
 <template>
-    <Head title="Crear Proyecto"/>
+    <Head title="Crear Pensum"/>
     <Suspense>
         <MyLayout>
             <template #header>
-                Crear Proyecto
+                Crear Pensum
             </template>
-            <formProject />
+            <formPensum />
         </MyLayout>
     </Suspense>
     

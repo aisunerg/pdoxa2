@@ -8,7 +8,7 @@ import { useForm } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref } from 'vue';
 
-const responseP = await axios.get(route('pensum.index'));
+const responseP = await axios.get(route('indexPensum'));
 
 const pensums = responseP.data;
 
