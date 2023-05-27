@@ -1,6 +1,7 @@
 <script setup>
     import MyLayout from '@/Layouts/MyLayout.vue';
     import { Head, router} from '@inertiajs/vue3';
+    import { selectObj } from '@/utilidades';
     
 
     const props = defineProps({
@@ -13,17 +14,6 @@
             default: null
         }
     });
-
-    function selArea(id) {
-        let val; 
-        props.areas.forEach(e => {
-            if (id == e.id) {
-                val = e.name;
-                 
-            }
-        }); 
-        return val;
-    }
 
     function eliminar(id) {
         router.delete(route('career.destroy', id));
@@ -72,7 +62,7 @@
                                         {{ career.code }}
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        {{ selArea(career.area_id) }}
+                                        {{ selectObj(career.area_id, areas) }}
                                     </td>
 
                                     <td class="px-4 py-3 text-sm">

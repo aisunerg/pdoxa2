@@ -1,6 +1,7 @@
 <script setup>
     import MyLayout from '@/Layouts/MyLayout.vue';
     import { Head, router, useForm } from '@inertiajs/vue3';
+    import { selectObj } from '@/utilidades';
     
 
     const props = defineProps({
@@ -13,17 +14,6 @@
             default: null
         }
     });
-
-    function selCareer(id) {
-        let val; 
-        props.careers.forEach(e => {
-            if (id == e.id) {
-                val = e.name;
-                 
-            }
-        });
-        return val;
-    }
 
     function eliminar(id) {
         router.delete(route('pensum.destroy', id));
@@ -72,7 +62,7 @@
                                         {{ pensum.regime }}
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        {{ selCareer(pensum.career_id) }}
+                                        {{ selectObj(pensum.career_id, careers)  }}
                                     </td>
 
                                     <td class="px-4 py-3 text-sm">

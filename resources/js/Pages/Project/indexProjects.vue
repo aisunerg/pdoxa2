@@ -1,6 +1,7 @@
 <script setup>
     import MyLayout from '@/Layouts/MyLayout.vue';
     import { Head, router, useForm } from '@inertiajs/vue3';
+    import { selectObj } from '@/utilidades';
     
 
     const props = defineProps({
@@ -13,17 +14,6 @@
             default: null
         }
     });
-
-    function selPensum(id) {
-        let val; 
-        props.pensums.forEach(e => {
-            if (id == e.id) {
-                val = e.name;
-                 
-            }
-        });
-        return val;
-    }
 
     function eliminar(slug) {
         router.delete(route('project.destroy', slug));
@@ -72,7 +62,7 @@
                                         {{ project.academic_period }}
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        {{ selPensum(project.pensum_id) }}
+                                        {{ selectObj(project.pensum_id, pensums) }}
                                     </td>
 
                                     <td class="px-4 py-3 text-sm">
