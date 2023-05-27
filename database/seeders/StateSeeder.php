@@ -18,5 +18,14 @@ class StateSeeder extends Seeder
         State::create([
             'name' => 'Aragua',
         ]);
+        
+        State::create([
+            'name' => 'Caracas',
+        ]);
+
+        State::create([
+            'name' => 'Guarico',
+        ]);
+
     }
 }
