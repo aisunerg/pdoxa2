@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\MunicipyController;
 use App\Http\Controllers\PensumController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\StateController;
 use App\Models\Area;
 
 // Login de Laravel
@@ -60,6 +62,11 @@ Route::get('indexArea', [AreaController::class, 'indexArea'])->name('indexArea')
 
 //USER
 Route::get('userIndex', [ProfileController::class, 'indexUser'])->name('indexUser');
+
+//STATE
+Route::resource('state', StateController::class);
+//MUNICIPY
+Route::resource('municipy', MunicipyController::class);
 
 
 

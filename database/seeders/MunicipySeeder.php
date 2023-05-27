@@ -18,5 +18,14 @@ class MunicipySeeder extends Seeder
         Municipy::create([
             'name' => 'Zamora',
         ]);
+        
+        Municipy::create([
+            'name' => 'Caracas',
+        ]);
+        
+        Municipy::create([
+            'name' => 'Juan German Roscio',
+        ]);
+
     }
 }

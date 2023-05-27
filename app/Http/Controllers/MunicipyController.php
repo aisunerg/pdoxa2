@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\State;
+use App\Models\Municipy;
 use Illuminate\Http\Request;
 
-class StateController extends Controller
+class MunicipyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return State::all();
+        return Municipy::all();
     }
 
     /**
@@ -34,7 +34,7 @@ class StateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(State $state)
+    public function show(Municipy $municipy)
     {
         //
     }
@@ -42,7 +42,7 @@ class StateController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(State $state)
+    public function edit(Municipy $municipy)
     {
         //
     }
@@ -50,7 +50,7 @@ class StateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, State $state)
+    public function update(Request $request, Municipy $municipy)
     {
         //
     }
@@ -58,7 +58,7 @@ class StateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(State $state)
+    public function destroy(Municipy $municipy)
     {
         //
     }
