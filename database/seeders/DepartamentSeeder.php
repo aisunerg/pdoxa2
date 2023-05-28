@@ -17,8 +17,8 @@ class DepartamentSeeder extends Seeder
     {
         Departament::create([
             'name' => "Estudios Generales",
-            'adress_id' =>	null,
-            'teacher_id' => null,
+            'adress_id' =>	1,
+            'teacher_id' => 1,
             'avr' => "DEG"    
         ]);
         Departament::create([

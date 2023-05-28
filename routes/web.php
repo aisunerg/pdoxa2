@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdressController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\DepartamentController;
 use App\Http\Controllers\MunicipyController;
 use App\Http\Controllers\PensumController;
 use App\Http\Controllers\ProfileController;
@@ -11,7 +13,9 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\TeacherController;
 use App\Models\Area;
+use App\Models\Departament;
 
 // Login de Laravel
 Route::get('/', function () {
@@ -50,7 +54,7 @@ Route::get('indexProject', [ProjectController::class, 'indexProject'])->name('in
 
 //PENSUMS
 Route::resource('pensum', PensumController::class);
-Route::get('indexPensum', [ProjectController::class, 'indexPensum'])->name('indexPensum');
+Route::get('indexPensum', [PensumController::class, 'indexPensum'])->name('indexPensum');
 
 //CAREERS
 Route::resource('career', CareerController::class);
@@ -65,13 +69,18 @@ Route::get('userIndex', [ProfileController::class, 'indexUser'])->name('indexUse
 
 //STATE
 Route::resource('state', StateController::class);
+
 //MUNICIPY
 Route::resource('municipy', MunicipyController::class);
 
+//TEACHER
+Route::resource('teacher', TeacherController::class);
 
+//ADRESS
+Route::resource('adress', AdressController::class);
 
-
-
+//DEPARTAMENT
+Route::resource('departament', DepartamentController::class);
 
 
 

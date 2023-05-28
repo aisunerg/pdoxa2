@@ -64,7 +64,7 @@ const open = ref(false);
         >
             <div
                 v-show="open"
-                class="relative z-50 mt-2 rounded-md "
+                class="relative z-50  rounded-md "
                 :class="[widthClass, alignmentClasses]"
                 style="display: none"
                 
