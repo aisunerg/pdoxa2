@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import { selectObj, store } from "@/utilidades";
 
 const props = defineProps({
     adresses: {
@@ -18,18 +19,6 @@ const props = defineProps({
     },
 })
 
-let name = ref(null);
-
-function selPensum (id, array){    
-    let val;
-    array.forEach(e => {
-        if (e.id == id) {
-            val = e.name;
-        }
-    });
-    return val;
-}
-
 const form = useForm({
     name: '',    
     adress: '',    
@@ -37,13 +26,11 @@ const form = useForm({
     avr: '',    
 })
 
-const createProject = () => {
-    form.post(route('departament.store'))
-}
+
 </script>
 
 <template>
-    <form @submit.prevent="createProject" class=" grid grid-cols-4 gap-4">
+    <form @submit.prevent="store('departament.store')" class=" grid grid-cols-4 gap-4">
         <div class="">
             <InputLabel                
                 value="Nombre"                 
@@ -73,7 +60,7 @@ const createProject = () => {
             >
                 <template #trigger>
                     <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
-                        <div v-if="form.adress !=''" class="text-xs ">{{ selPensum(form.adress, adresses) }}</div>
+                        <div v-if="form.adress !=''" class="text-xs ">{{ selectObj(form.adress, adresses) }}</div>
                         <div v-else>Elige el area</div>
                     </button>
                 </template>

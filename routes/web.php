@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
-use App\Models\Area;
-use App\Models\Departament;
-
+use App\Http\Controllers\UtilController;
 // Login de Laravel
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/myDash', function (){
     return Inertia::render('MyDashboard');
 })->name('mydash');
-
+Route::get('borrar',[UtilController::class, 'borrar']);
 
 
 //PROJECTS
@@ -82,6 +82,13 @@ Route::resource('adress', AdressController::class);
 //DEPARTAMENT
 Route::resource('departament', DepartamentController::class);
 
+//SUBJECT
+Route::resource('subject', SubjectController::class);
+
+//SHIFT
+Route::resource('shift', ShiftController::class);
+
+//SECTION
 
 
 require __DIR__.'/auth.php';
