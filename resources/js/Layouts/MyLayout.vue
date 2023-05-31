@@ -3,7 +3,7 @@
     import Dropdown from "@/Components/Dropdown.vue";
 
     defineProps({
-        SelectProject: {
+        project: {
             type: Object,
             default: null
         },
@@ -14,7 +14,7 @@
 <template>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" >
     <!-- Desktop sidebar -->
-    <Asidebar :project="SelectProject"/>
+    <Asidebar :project="project"/>
     
     <!-- Backdrop -->
     <div class="flex flex-col flex-1 w-full">

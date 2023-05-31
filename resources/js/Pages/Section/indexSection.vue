@@ -1,7 +1,7 @@
 <script setup>
     import MyLayout from '@/Layouts/MyLayout.vue';
     import { Head, router, useForm } from '@inertiajs/vue3';
-    import { selectObj } from '@/utilidades';
+    import { selectObj, relaciona } from '@/utilidades';
     import DropdownX from '@/Components/DropdownX.vue';
     import formSection from '@/Pages/Section/formSection.vue';
     
@@ -19,8 +19,16 @@
             type: Object,
             default: null
         },
+        teachers: {
+            type: Object,
+            default: null
+        },
         project: {
-            type: Number,
+            type: Object,
+            default: null
+        },
+        teachsecs: {
+            type: Object,
             default: null
         },
     });
@@ -33,40 +41,41 @@
 <template>
     <Head title="Proyectos"/>
         <Suspense>
-            <MyLayout>
+            <MyLayout :project="project">
                 <template #header>
                         <div class="">
-                            Secciones
+                            Secciones del Proyecto {{ project.name }}
                         </div>
                 </template>
                 <div v-if="$page.props.flash.message" class="flex">
-                    <div class="border-4 p-0 border-red-300 bg-red-300 w-full p-2 rounded-l-lg">
+                    <div class="border-4 p-0 border-red-300 bg-red-300 w-full rounded-l-lg">
                         <div class="w-full pl-2 bg-white rounded-lg py-1">
                             {{ $page.props.flash.message }}
                         </div>
                     </div>
                     <div @click="$page.props.flash.message = null" class="bg-red-300 h-full rounded-r-lg pt-2 pr-2 pl-1 font-extrabold cursor-pointer">X</div>
                 </div>
+                <DropdownX
+                    width="full"
+                    contentClasses=" bg-slate-200 p-2 "
+                >
+                    <template #trigger>
+                        <div class="w-full bg-slate-200 p-2">
+                            Agregar Nueva Seccion
+                            <span class="font-bold">+</span>
+                        </div>
+                    </template>
+                    <template #content>
+                        <formSection :shifts="shifts" :subjects="subjects" :project="project" :teachers="teachers"/>
+                    </template>
+                </DropdownX>
                 <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                    <DropdownX
-                        width="full"
-                        contentClasses=" bg-slate-200 p-2"
-                    >
-                        <template #trigger>
-                            <div class="w-full bg-slate-200 p-2">
-                                Agregar Nueva Seccion
-                                <span class="font-bold">+</span>
-                            </div>
-                        </template>
-                        <template #content>
-                            <formSection :shifts="shifts" :subjects="subjects"/>
-                        </template>
-                    </DropdownX>
                     <div class="w-full overflow-x-auto">
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3">Nombre</th>
+                                    <th class="px-4 py-3">Profesor</th>
                                     <th class="px-4 py-3">Materia</th>                                    
                                     <th class="px-4 py-3">Cuota</th>                                    
                                     <th class="px-4 py-3">Turno</th>                                    
@@ -82,11 +91,14 @@
                                             <p class="font-semibold">{{section.name}}</p>
                                         </div>
                                     </td>
+                                    <td class="px-4 py-3" >
+                                        {{relaciona(teachsecs, section.id, teachers)}}
+                                    </td>
                                     <td class="px-4 py-3">
                                         <p class="font-semibold">{{selectObj(section.subject_id, subjects)}}</p>
                                     </td>
                                     <td class="px-4 py-3">
-                                            <p class="">{{section.quote}}</p>
+                                            <p class="">{{section.quota}}</p>
                                     </td>
                                     <td class="px-4 py-3">
                                         <p class="font-semibold">{{selectObj(section.shift_id, shifts)}}</p>

@@ -223,7 +223,7 @@ const createProject = () => {
                 <template #trigger>
                     <button type="button" class="p-2 border w-48 bg-white text-left rounded-lg shadow-lg">
                         <div v-if="form.municipy !=''" class="text-xs ">{{ selPensum(form.municipy, municipies) }}</div>
-                        <div v-else>Elige el area</div>
+                        <div v-else>Elige el municipio</div>
                     </button>
                 </template>
                 <template #content>

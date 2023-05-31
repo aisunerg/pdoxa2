@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\SubjectController;
@@ -89,6 +90,7 @@ Route::resource('subject', SubjectController::class);
 Route::resource('shift', ShiftController::class);
 
 //SECTION
+Route::resource('project.section', SectionController::class)->shallow();
 
 
 require __DIR__.'/auth.php';

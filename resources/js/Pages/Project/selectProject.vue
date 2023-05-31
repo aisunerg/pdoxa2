@@ -3,7 +3,7 @@
     import { Head } from '@inertiajs/vue3';
 
     defineProps({
-        LoadProject: {
+        project: {
             type: Object,
             default: null
         },
@@ -13,10 +13,10 @@
 <template>
   <Head title="MiDashBoard"/>
   <Suspense>
-    <MyLayout :SelectProject="LoadProject">
+    <MyLayout :project="project">
       <template #header>
-          <div class="" v-if="LoadProject">
-            Trabajando en {{ LoadProject.name }}
+          <div class="" v-if="project">
+            Trabajando en {{ project.name }}
           </div>
       </template>      
     </MyLayout>

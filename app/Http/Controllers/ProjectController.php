@@ -12,7 +12,7 @@ class ProjectController extends Controller
     public function selectProject(Project $project)
     {
         return Inertia::render('Project/selectProject', [
-            'LoadProject' => $project,
+            'project' => $project,
         ]);
     }
 
