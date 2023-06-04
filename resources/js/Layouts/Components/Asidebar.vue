@@ -101,9 +101,9 @@
                 </li>
             </ul>
             <ul>
+                <!-- Aulas -->
                 <li v-if="project" class="relative px-6 py-3">
-                    <!-- Aulas -->
-                    <Link href="" >
+                    <Link :href="route('project.classroom.index', project)" >
                         <button
                             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                         >
@@ -125,8 +125,8 @@
                         </button>
                     </Link>
                 </li>
+                <!-- Secciones -->
                 <li v-if="project" class="relative px-6 py-3">
-                    <!-- Secciones -->
                     <Link :href="route('project.section.index', project)">
                         <button
                             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -150,6 +150,8 @@
                         </button>
                     </Link>
                 </li>
+
+                <!-- Opciones -->
                 <li class="relative px-6 py-3">
                     <DropdownX>
                         <template #trigger>
@@ -172,24 +174,169 @@
                                 ></path>
                                 <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
                                 </svg>
-                                <span class="ml-4">Pensum</span>
+                                <span class="ml-4">Opciones</span>
                             </button>
                         </template>
                         <template #content>
-                            <ul class="flex flex-col">
-                                <Link class=" hover:text-black" :href="route('pensum.create')">Crear Pensum</Link>
-                                <Link class=" hover:text-black" :href="route('pensum.index')">Pensums</Link>
+                            <ul>
+                                <li class="relative px-6 py-3">
+                                    <DropdownX>
+                                        <template #trigger>
+                                            <button
+                                                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                                href="charts.html"
+                                            >
+                                                <svg
+                                                class="w-5 h-5"
+                                                aria-hidden="true"
+                                                fill="none"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                >
+                                                <path
+                                                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
+                                                ></path>
+                                                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                                                </svg>
+                                                <span class="ml-4">Pensum</span>
+                                            </button>
+                                        </template>
+                                        <template #content>
+                                            <ul class="flex flex-col">
+                                                <Link class=" hover:text-black" :href="route('pensum.create')">Crear Pensum</Link>
+                                                <Link class=" hover:text-black" :href="route('pensum.index')">Pensums</Link>
+                                            </ul>
+                                        </template>
+                                    </DropdownX>
+                                
+                                </li>
+                                <li class="relative px-6 py-3">
+                                    <DropdownX>
+                                        <template #trigger>
+                                            <button
+                                                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                                href="buttons.html"
+                                            >
+                                                <svg
+                                                class="w-5 h-5"
+                                                aria-hidden="true"
+                                                fill="none"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                >
+                                                <path
+                                                    d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                                                ></path>
+                                                </svg>
+                                                <span class="ml-4">Carerras</span>
+                                            </button>
+                                        </template>
+                                        <template #content>
+                                            <div class="flex flex-col">
+                                                <Link class="hover:text-black" :href="route('career.create')">Crear Carrera</Link>
+                                                <Link class="hover:text-black" :href="route('career.index')">Carreras</Link>
+                                            </div>
+                                        </template>
+                                    </DropdownX>
+                                </li>
+                                <li class="relative px-6 py-3">
+                                <Link
+                                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                    :href="route('teacher.index')"
+                                >
+                                    <svg
+                                    class="w-5 h-5"
+                                    aria-hidden="true"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    >
+                                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                    </svg>
+                                    <span class="ml-4">Profesores</span>
+                                </Link>
+                                </li>
+                                <li class="relative px-6 py-3">
+                                <Link
+                                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                    :href="route('adress.index')"
+                                >
+                                    <svg
+                                    class="w-5 h-5"
+                                    aria-hidden="true"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    >
+                                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                    </svg>
+                                    <span class="ml-4">Direcciones</span>
+                                </Link>
+                                </li>
+                                <li class="relative px-6 py-3">
+                                <Link
+                                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                    :href="route('departament.index')"
+                                >
+                                    <svg
+                                    class="w-5 h-5"
+                                    aria-hidden="true"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    >
+                                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                    </svg>
+                                    <span class="ml-4">Departamentos</span>
+                                </Link>
+                                </li>
+                                <li class="relative px-6 py-3">
+                                <Link
+                                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                    :href="route('subject.index')"
+                                >
+                                    <svg
+                                    class="w-5 h-5"
+                                    aria-hidden="true"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    >
+                                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                    </svg>
+                                    <span class="ml-4">Materias</span>
+                                </Link>
+                                </li>                                
                             </ul>
                         </template>
                     </DropdownX>
+                </li>    
                 
-                </li>
+                <!-- Opciones Generales -->
                 <li class="relative px-6 py-3">
                     <DropdownX>
                         <template #trigger>
                             <button
                                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                                href="buttons.html"
+                                href="charts.html"
                             >
                                 <svg
                                 class="w-5 h-5"
@@ -202,151 +349,157 @@
                                 stroke="currentColor"
                                 >
                                 <path
-                                    d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
                                 ></path>
+                                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
                                 </svg>
-                                <span class="ml-4">Carerras</span>
+                                <span class="ml-4">Opciones Generales</span>
                             </button>
                         </template>
                         <template #content>
-                            <div class="flex flex-col">
-                                <Link class="hover:text-black" :href="route('career.create')">Crear Carrera</Link>
-                                <Link class="hover:text-black" :href="route('career.index')">Carreras</Link>
-                            </div>
-                        </template>
-                    </DropdownX>
-                </li>
-                <li class="relative px-6 py-3">
-                    <DropdownX>
-                        <template #trigger>
-                            <button
-                                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            >
-                                <svg
-                                class="w-5 h-5"
-                                aria-hidden="true"
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                            <ul>
+                                <!-- Esquema de Dias -->
+                                <li class="relative px-6 py-3">
+                                    <Link
+                                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                        :href="route('schemeday.index')"
+                                    >
+                                        <svg
+                                        class="w-5 h-5"
+                                        aria-hidden="true"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        >
+                                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                        </svg>
+                                        <span class="ml-4">Esquema de Dia</span>
+                                    </Link> 
+                                </li>
+                                <!-- Esquema de Horas -->
+                                <li class="relative px-6 py-3">
+                                    <Link
+                                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                        :href="route('schemehour.index')"
+                                    >
+                                        <svg
+                                        class="w-5 h-5"
+                                        aria-hidden="true"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        >
+                                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                        </svg>
+                                        <span class="ml-4">Esquema de Horas</span>
+                                    </Link> 
+                                </li>                          
+                                <!-- Area -->
+                                <li class="relative px-6 py-3">
+                                    <DropdownX>
+                                        <template #trigger>
+                                            <button
+                                                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                            >
+                                                <svg
+                                                class="w-5 h-5"
+                                                aria-hidden="true"
+                                                fill="none"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                >
+                                                <path
+                                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                                ></path>
+                                                </svg>
+                                                <span class="ml-4">Area</span>
+                                            </button>
+                                        </template>
+                                        <template #content>
+                                            <div class="flex flex-col">
+                                                <Link class="hover:text-black" :href="route('area.create')">Crear Area</Link>
+                                                <Link class="hover:text-black" :href="route('area.index')">Area</Link>
+                                            </div>
+                                        </template>
+                                    </DropdownX>
+                                </li>
+                                <!-- Turnos -->
+                                <li class="relative px-6 py-3">
+                                <Link
+                                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                    :href="route('shift.index')"
                                 >
-                                <path
-                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                                ></path>
-                                </svg>
-                                <span class="ml-4">Area</span>
-                            </button>
-                        </template>
-                        <template #content>
-                            <div class="flex flex-col">
-                                <Link class="hover:text-black" :href="route('area.create')">Crear Area</Link>
-                                <Link class="hover:text-black" :href="route('area.index')">Area</Link>
-                            </div>
+                                    <svg
+                                    class="w-5 h-5"
+                                    aria-hidden="true"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    >
+                                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                    </svg>
+                                    <span class="ml-4">Turnos</span>
+                                </Link>
+                                </li>
+                                <!-- Ubicacion -->
+                                <li class="relative px-6 py-3">
+                                    <Link
+                                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                        :href="route('ubication.index')"
+                                    >
+                                        <svg
+                                        class="w-5 h-5"
+                                        aria-hidden="true"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        >
+                                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                        </svg>
+                                        <span class="ml-4">Ubicaciones</span>
+                                    </Link>
+                                </li>
+                                <!-- Tipos de Aula -->
+                                <li class="relative px-6 py-3">
+                                    <Link
+                                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                        :href="route('classroom_type.index')"
+                                    >
+                                        <svg
+                                        class="w-5 h-5"
+                                        aria-hidden="true"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        >
+                                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                        </svg>
+                                        <span class="ml-4">Tipos de Aula</span>
+                                    </Link>
+                                </li>
+                                
+                                
+                            </ul>
                         </template>
                     </DropdownX>
-                </li>
-                
-                <li class="relative px-6 py-3">
-                <Link
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    :href="route('teacher.index')"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                    </svg>
-                    <span class="ml-4">Profesores</span>
-                </Link>
-                </li>
-                <li class="relative px-6 py-3">
-                <Link
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    :href="route('adress.index')"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                    </svg>
-                    <span class="ml-4">Direcciones</span>
-                </Link>
-                </li>
-                <li class="relative px-6 py-3">
-                <Link
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    :href="route('departament.index')"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                    </svg>
-                    <span class="ml-4">Departamentos</span>
-                </Link>
-                </li>
-                <li class="relative px-6 py-3">
-                <Link
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    :href="route('subject.index')"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                    </svg>
-                    <span class="ml-4">Materias</span>
-                </Link>
-                </li>
-                <li class="relative px-6 py-3">
-                <Link
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    :href="route('shift.index')"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                    </svg>
-                    <span class="ml-4">Turnos</span>
-                </Link>
                 </li>
           </ul>
         </div>

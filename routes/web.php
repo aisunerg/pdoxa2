@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdressController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\ClassroomTypeController;
 use App\Http\Controllers\DepartamentController;
 use App\Http\Controllers\MunicipyController;
 use App\Http\Controllers\PensumController;
@@ -12,11 +14,14 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SchemeDayController;
+use App\Http\Controllers\SchemeHourController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UbicationController;
 use App\Http\Controllers\UtilController;
 // Login de Laravel
 Route::get('/', function () {
@@ -91,6 +96,21 @@ Route::resource('shift', ShiftController::class);
 
 //SECTION
 Route::resource('project.section', SectionController::class)->shallow();
+
+//CLASSROOM
+Route::resource('project.classroom', ClassroomController::class)->shallow();
+
+//CLASSROOM TYPE
+Route::resource('classroom_type', ClassroomTypeController::class);
+
+//SCHEME DAY
+Route::resource('schemeday', SchemeDayController::class);
+
+//SCHEME HOUR
+Route::resource('schemehour', SchemeHourController::class);
+
+//UBICATION
+Route::resource('ubication', UbicationController::class);
 
 
 require __DIR__.'/auth.php';
