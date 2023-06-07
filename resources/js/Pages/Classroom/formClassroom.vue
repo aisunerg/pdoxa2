@@ -39,10 +39,10 @@ const props = defineProps({
 const form = useForm({
     name: '',
     project: props.project.id,
-    classroom_types_id: '',
-    ubications_id: '',
-    scheme_days_id: '',
-    scheme_hours_id: '',
+    classroom_type: '',
+    ubication: '',
+    scheme_day: '',
+    scheme_hour: '',
 });
 
 const store = () => {
@@ -70,7 +70,7 @@ const store = () => {
         
         <div class="">
             <InputLabel                
-            value="Materia"                 
+            value="Tipo de Aula"                 
             />
             
            <div class="">
@@ -81,103 +81,109 @@ const store = () => {
                 >
                     <template #trigger>
                         <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
-                            <div v-if="form.subject != ''" class="text-sm truncate h-6 p-1">{{ selectObj(form.subject, subjects) }}</div>
-                            <div v-else>Elige la materia</div>
+                            <div v-if="form.classroom_type != ''" class="text-sm truncate h-6 p-1">{{ selectObj(form.classroom_type, classroom_types) }}</div>
+                            <div v-else>Elige el Tipo de Aula</div>
                         </button>
                     </template>
                     <template #content>
-                            <div class="px-1" @click="form.subject = subject.id" v-for="(subject) in subjects" :key="subject.id">
-                                <div class="font-bold" v-if="grupo(subject.level)">
-                                    Semestre {{ subject.level }}
-                                </div>
-                                <div class="hover:bg-slate-200 cursor-pointer rounded-lg pl-2">{{subject.name  }}</div>
-
+                            <div class="px-1" @click="form.classroom_type = classroom_type.id" v-for="(classroom_type) in classroom_types" :key="classroom_type.id">
+                                <div class="hover:bg-slate-200 cursor-pointer rounded-lg pl-2">{{classroom_type.name  }}</div>
                             </div>
                         
                     </template>
                 </Dropdown>
-                <InputError class="mt-2" :message="form.errors.subject" />
+                <InputError class="mt-2" :message="form.errors.classroom_type" />
             </div>
         
         </div>
+        
         <div class="">
             <InputLabel                
-                value="Cuota"                 
-            />
-            
-            <TextInput
-                class=""
-                v-model="form.quota"
-                type="number" 
-                required
-            />
-
-            <InputError class="mt-2" :message="form.errors.quota" />
-        </div>
-
-        <div class="">
-            <InputLabel                
-                value="Turno"                 
+            value="Ubicacion"                 
             />
             
            <div class="">
-            <Dropdown
-                contentClasses="bg-gray-400 mt-0" 
-                align="left" 
-            >
-                <template #trigger>
-                    <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
-                        <div v-if="form.shift_id != ''" class="text-sm h-6 p-1">{{ selectObj(form.shift_id, shifts) }}</div>
-                        <div v-else>Elige el turno</div>
-                    </button>
-                </template>
-                <template #content>
-                    
-                    <div class="hover:bg-slate-200 cursor-pointer" @click="form.shift_id = shift.id" v-for="shift in shifts" :key="shift.id">
-                        {{ shift.name }}
-                    </div>
-                    
-                    
-                </template>
-            </Dropdown>
-           </div>
-
-            <InputError class="mt-2" :message="form.errors.shift" />
+                <Dropdown
+                    contentClasses="bg-white mt-0 overflow-y-scroll h-32"
+                    width="32"
+                    align="left" 
+                >
+                    <template #trigger>
+                        <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
+                            <div v-if="form.ubication != ''" class="text-sm truncate h-6 p-1">{{ selectObj(form.ubication, ubications) }}</div>
+                            <div v-else>Elige la Ubicacion</div>
+                        </button>
+                    </template>
+                    <template #content>
+                            <div class="px-1" @click="form.ubication = ubication.id" v-for="(ubication) in ubications" :key="ubication.id">
+                                <div class="hover:bg-slate-200 cursor-pointer rounded-lg pl-2">{{ubication.name  }}</div>
+                            </div>
+                        
+                    </template>
+                </Dropdown>
+                <InputError class="mt-2" :message="form.errors.ubication" />
+            </div>
+        
         </div>
         
         <div class="">
             <InputLabel                
-                value="Profesor"                 
+            value="Esquema de Dia"                 
             />
             
            <div class="">
-            <Dropdown
-                contentClasses="bg-gray-400 mt-0 overflow-y-scroll h-32 p-1"
-                align="left" 
-            >
-                <template #trigger>
-                    <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
-                        <div v-if="form.teacher_id != ''" class="text-sm h-6 p-1">{{ selectAll(form.teacher_id, teachers) }}</div>
-                        <div v-else>Elige el profesor</div>
-                    </button>
-                </template>
-                <template #content>
-                    
-                    <div class="hover:bg-slate-200 cursor-pointer" @click="form.teacher_id = teacher.id" v-for="teacher in teachers" :key="teacher.id">
-                        {{ teacher.name+" "+teacher.lastname}}
-                    </div>
-                    
-                    
-                </template>
-            </Dropdown>
-           </div>
+                <Dropdown
+                    contentClasses="bg-white mt-0 overflow-y-scroll h-32"
+                    width="32"
+                    align="left" 
+                >
+                    <template #trigger>
+                        <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
+                            <div v-if="form.scheme_day != ''" class="text-sm truncate h-6 p-1">{{ selectObj(form.scheme_day, scheme_days) }}</div>
+                            <div v-else>Selecionar</div>
+                        </button>
+                    </template>
+                    <template #content>
+                            <div class="px-1" @click="form.scheme_day = scheme_day.id" v-for="(scheme_day) in scheme_days" :key="scheme_day.id">
+                                <div class="hover:bg-slate-200 cursor-pointer rounded-lg pl-2">{{scheme_day.name  }}</div>
+                            </div>
+                        
+                    </template>
+                </Dropdown>
+                <InputError class="mt-2" :message="form.errors.scheme_day" />
+            </div>
+        
+        </div>
 
-            <InputError class="mt-2" :message="form.errors.shift" />
+        <div class="">
+            <InputLabel                
+            value="Esquema de Hora"                 
+            />
+            
+           <div class="">
+                <Dropdown
+                    contentClasses="bg-white mt-0 overflow-y-scroll h-32"
+                    width="32"
+                    align="left" 
+                >
+                    <template #trigger>
+                        <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
+                            <div v-if="form.scheme_hour != ''" class="text-sm truncate h-6 p-1">{{ selectObj(form.scheme_hour, scheme_hours) }}</div>
+                            <div v-else>Seleccione</div>
+                        </button>
+                    </template>
+                    <template #content>
+                            <div class="px-1" @click="form.scheme_hour = scheme_hour.id" v-for="(scheme_hour) in scheme_hours" :key="scheme_hour.id">
+                                <div class="hover:bg-slate-200 cursor-pointer rounded-lg pl-2">{{scheme_hour.name  }}</div>
+                            </div>
+                        
+                    </template>
+                </Dropdown>
+                <InputError class="mt-2" :message="form.errors.scheme_hour" />
+            </div>
+        
         </div>
         
-
-
-
         <div class="">
             
             <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">

@@ -7,30 +7,18 @@
     
 
     const props = defineProps({
-        classrooms: {
-            type: Object,
-            default: null
-        },
         classroom_types:{
             type:Object,
             default:null
         },
-        ubications:{
+        meetings:{
             type:Object,
             default:null
         },
-        scheme_days:{
+        subjects:{
             type:Object,
             default:null
-        },
-        scheme_hours:{
-            type:Object,
-            default:null
-        },
-        project:{
-            type:Object,
-            default:null
-        },
+        }
     })
 
     function eliminar(id) {
@@ -74,11 +62,9 @@
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3">Nombre</th>
+                                    <th class="px-4 py-3">Materia</th>
+                                    <th class="px-4 py-3">Cant. de Horas</th>
                                     <th class="px-4 py-3">Tipo de Aula</th>
-                                    <th class="px-4 py-3">Ubicacion</th>                                    
-                                    <th class="px-4 py-3">Esquema de Dia</th>                                    
-                                    <th class="px-4 py-3">Esquema de Hora</th>                                    
                                     <th class="px-4 py-3">Acciones</th> 
                                                           
                                 </tr>
@@ -88,7 +74,7 @@
 
                                     <td class="px-4 py-3">
                                         <div class="text-sm">
-                                            <p class="font-semibold">{{classroom.name}}</p>
+                                            <p class="font-semibold">{{classroom.subject_id}}</p>
                                         </div>
                                     </td>
                                     <td class="px-4 py-3" >

@@ -6,6 +6,7 @@ use App\Http\Controllers\CareerController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ClassroomTypeController;
 use App\Http\Controllers\DepartamentController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MunicipyController;
 use App\Http\Controllers\PensumController;
 use App\Http\Controllers\ProfileController;
@@ -23,13 +24,18 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UbicationController;
 use App\Http\Controllers\UtilController;
+
 // Login de Laravel
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
+    return Inertia::render('Auth/Login', [
+        'canResetPassword' => Route::has('password.request'),
+        'status' => session('status'),
     ]);
 });
 //  Dashboard de Laravel
@@ -44,73 +50,86 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-/* MIS RUTAS */
-Route::get('/myDash', function (){
-    return Inertia::render('MyDashboard');
-})->name('mydash');
-Route::get('borrar',[UtilController::class, 'borrar']);
+Route::middleware('auth')->group(function () {
+    /* MIS RUTAS */
+    Route::get('/myDash', function (){
+        return Inertia::render('MyDashboard');
+    })->name('mydash');
+    Route::get('welcome', function ()
+    {
+        return inertia('Welcome');
+    });
 
 
-//PROJECTS
-Route::get('/myDash/{project:slug}', [ProjectController::class, 'selectProject'])->name('project.select');
-Route::resource('project', ProjectController::class)->parameters([
-    'project' => 'project:slug',
-]);
-Route::get('indexProject', [ProjectController::class, 'indexProject'])->name('indexProject');
+    // RUTAS DEL PROYECTO
 
-//PENSUMS
-Route::resource('pensum', PensumController::class);
-Route::get('indexPensum', [PensumController::class, 'indexPensum'])->name('indexPensum');
+    //PROJECTS
+    Route::get('/myDash/{project:slug}', [ProjectController::class, 'selectProject'])->name('project.select');
+    Route::resource('project', ProjectController::class)->parameters([
+        'project' => 'project:slug',
+    ]);
+    Route::get('indexProject', [ProjectController::class, 'indexProject'])->name('indexProject');
 
-//CAREERS
-Route::resource('career', CareerController::class);
-Route::get('indexCareer', [CareerController::class, 'indexCareer'])->name('indexCareer');
+    //PENSUMS
+    Route::resource('pensum', PensumController::class);
+    Route::get('indexPensum', [PensumController::class, 'indexPensum'])->name('indexPensum');
 
-//AREAS
-Route::resource('area', AreaController::class);
-Route::get('indexArea', [AreaController::class, 'indexArea'])->name('indexArea');
+    //CAREERS
+    Route::resource('career', CareerController::class);
+    Route::get('indexCareer', [CareerController::class, 'indexCareer'])->name('indexCareer');
 
-//USER
-Route::get('userIndex', [ProfileController::class, 'indexUser'])->name('indexUser');
+    //AREAS
+    Route::resource('area', AreaController::class);
+    Route::get('indexArea', [AreaController::class, 'indexArea'])->name('indexArea');
 
-//STATE
-Route::resource('state', StateController::class);
+    //USER
+    Route::get('userIndex', [ProfileController::class, 'indexUser'])->name('indexUser');
 
-//MUNICIPY
-Route::resource('municipy', MunicipyController::class);
+    //STATE
+    Route::resource('state', StateController::class);
 
-//TEACHER
-Route::resource('teacher', TeacherController::class);
+    //MUNICIPY
+    Route::resource('municipy', MunicipyController::class);
 
-//ADRESS
-Route::resource('adress', AdressController::class);
+    //TEACHER
+    Route::resource('teacher', TeacherController::class);
 
-//DEPARTAMENT
-Route::resource('departament', DepartamentController::class);
+    //ADRESS
+    Route::resource('adress', AdressController::class);
 
-//SUBJECT
-Route::resource('subject', SubjectController::class);
+    //DEPARTAMENT
+    Route::resource('departament', DepartamentController::class);
 
-//SHIFT
-Route::resource('shift', ShiftController::class);
+    //SUBJECT
+    Route::resource('subject', SubjectController::class);
 
-//SECTION
-Route::resource('project.section', SectionController::class)->shallow();
+    //SHIFT
+    Route::resource('shift', ShiftController::class);
 
-//CLASSROOM
-Route::resource('project.classroom', ClassroomController::class)->shallow();
+    //SECTION
+    Route::resource('project.section', SectionController::class)->shallow();
 
-//CLASSROOM TYPE
-Route::resource('classroom_type', ClassroomTypeController::class);
+    //CLASSROOM
+    Route::resource('project.classroom', ClassroomController::class)->shallow();
 
-//SCHEME DAY
-Route::resource('schemeday', SchemeDayController::class);
+    //CLASSROOM TYPE
+    Route::resource('classroom_type', ClassroomTypeController::class);
 
-//SCHEME HOUR
-Route::resource('schemehour', SchemeHourController::class);
+    //SCHEME DAY
+    Route::resource('schemeday', SchemeDayController::class);
 
-//UBICATION
-Route::resource('ubication', UbicationController::class);
+    //SCHEME HOUR
+    Route::resource('schemehour', SchemeHourController::class);
+
+    //UBICATION
+    Route::resource('ubication', UbicationController::class);
+
+    //MEETING
+    Route::resource('meeting', MeetingController::class);
+    Route::get('meetingS/{subject}', [MeetingController::class, 'meetingSubject'])->name('meetingSubject');
+});
+
+
 
 
 require __DIR__.'/auth.php';

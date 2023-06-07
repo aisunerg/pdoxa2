@@ -38,21 +38,20 @@ class ClassroomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project)
     {
         $classroom = new Classroom();
-        $project = Project::where('id', $request->project_id)->get();
 
         $classroom->name = $request->name;
-        $classroom->classroom_type_id = $request->classroom_type_id;
-        $classroom->ubication_id = $request->ubication_id;
-        $classroom->project_id = $request->project_id;
-        $classroom->scheme_day_id = $request->scheme_day_id;
-        $classroom->scheme_hour_id = $request->scheme_hour_id;
+        $classroom->classroom_type_id = $request->classroom_type;
+        $classroom->ubication_id = $request->ubication;
+        $classroom->project_id = $request->project;
+        $classroom->scheme_day_id = $request->scheme_day;
+        $classroom->scheme_hour_id = $request->scheme_hour;
 
         $classroom->save();
 
-        return to_route('project.classroom.index', $project)->with('message', 'Aula Creada!');
+        return to_route('project.classroom.index', $project->slug)->with('message', 'Aula Creada!');
     }
 
     /**
@@ -86,6 +85,7 @@ class ClassroomController extends Controller
     {
         $project = Project::where('id', $classroom->project_id)->get();
         $borrado = $classroom->name;
-        return to_route('project.classroom.index', $project)->with('message', 'Aula: "'.$borrado.'", Eliminada!');
+        $classroom->delete();
+        return to_route('project.classroom.index', $project[0]->slug)->with('message', 'Aula: "'.$borrado.'", Eliminada!');
     }
 }
