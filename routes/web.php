@@ -5,6 +5,7 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ClassroomTypeController;
+use App\Http\Controllers\DayController;
 use App\Http\Controllers\DepartamentController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MunicipyController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UbicationController;
 use App\Http\Controllers\UtilController;
+use App\Models\SchemeDay;
 
 // Login de Laravel
 Route::get('/', function () {
@@ -118,6 +120,9 @@ Route::middleware('auth')->group(function () {
     //SCHEME DAY
     Route::resource('schemeday', SchemeDayController::class);
 
+    //DAYS
+    Route::resource('day', DayController::class);
+
     //SCHEME HOUR
     Route::resource('schemehour', SchemeHourController::class);
 
@@ -127,6 +132,10 @@ Route::middleware('auth')->group(function () {
     //MEETING
     Route::resource('meeting', MeetingController::class);
     Route::get('meetingS/{subject}', [MeetingController::class, 'meetingSubject'])->name('meetingSubject');
+
+    //
+
+
 });
 
 

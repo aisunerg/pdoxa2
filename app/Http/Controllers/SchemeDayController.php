@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Day;
 use App\Models\SchemeDay;
 use Illuminate\Http\Request;
 
@@ -41,9 +42,12 @@ class SchemeDayController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SchemeDay $schemeDay)
+    public function show(SchemeDay $schemeday)
     {
-        //
+        return inertia('Day/schemeDays',[
+            'schemeday' => $schemeday,
+            'days' => Day::where('scheme_day_id', $schemeday->id)->get(),
+        ]);
     }
 
     /**

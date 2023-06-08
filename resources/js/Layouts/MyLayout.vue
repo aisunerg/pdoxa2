@@ -210,7 +210,7 @@
       </header>
       <main class="h-full overflow-y-auto ">
         <div class="container px-6 mx-auto h-full">
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200 ">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200 flex flex-inline">
                 <slot name="header"/>
             </h2>
               <slot />

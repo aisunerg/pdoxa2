@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Day;
+use App\Models\Hour;
 use Illuminate\Http\Request;
 
-class DayController extends Controller
+class HourController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,20 +28,13 @@ class DayController extends Controller
      */
     public function store(Request $request)
     {
-        $day = new Day();
-
-        $day->name = $request->name;
-        $day->number = $request->number;
-        $day->scheme_day_id = $request->schemeday;
-        $day->save();
-
-        return to_route('schemeday.show', $request->schemeday)->with('message', 'Dia: "'.$day->name.'", Agregado con Exito!');
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Day $day)
+    public function show(Hour $hour)
     {
         //
     }
@@ -49,7 +42,7 @@ class DayController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Day $day)
+    public function edit(Hour $hour)
     {
         //
     }
@@ -57,7 +50,7 @@ class DayController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Day $day)
+    public function update(Request $request, Hour $hour)
     {
         //
     }
@@ -65,10 +58,8 @@ class DayController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Day $day)
+    public function destroy(Hour $hour)
     {
-        $dayB = $day->scheme_day_id;
-        $day->delete();
-        return to_route('schemeday.show', $dayB)->with('message', 'Dia eliminado con exito.');
+        //
     }
 }
