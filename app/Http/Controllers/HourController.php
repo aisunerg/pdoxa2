@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hour;
+use App\Models\ShiftHour;
 use Illuminate\Http\Request;
 
 class HourController extends Controller
@@ -28,7 +29,18 @@ class HourController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $hour = new Hour();
+
+        $hour->number = $request->number;
+        $hour->start = $request->start;
+        $hour->end = $request->end;
+        $hour->scheme_hour_id = $request->schemehour;
+        $hour->save();
+
+        $shifthour = new ShiftHourController();
+        $estado = $shifthour->keep($request->shift, $hour->id);
+
+        return to_route('schemehour.show', $hour->scheme_hour_id)->with('message', 'Hora agregada!. '.$estado);
     }
 
     /**
@@ -60,6 +72,8 @@ class HourController extends Controller
      */
     public function destroy(Hour $hour)
     {
-        //
+        $hour->delete();
+        $borrar = ShiftHour::where('hour_id', $hour->id)->delete();
+        return to_route('schemehour.show', $hour->scheme_hour_id)->with('message', 'Hora eliminada.');
     }
 }

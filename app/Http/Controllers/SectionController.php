@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MeetingSection;
 use App\Models\Project;
 use App\Models\Section;
 use App\Models\Shift;
@@ -48,8 +49,14 @@ class SectionController extends Controller
         $section->quota = $request->quota;
         $section->shift_id = $request->shift_id;
         $section->save();
-
-        $teacherComplete = TeacherSectionController::keep($section->id, $request->teacher_id);
+        
+        $meetingComplete = MeetingSectionController::keep($section->id, $section->subject_id);
+        if ($meetingComplete) {
+            $teacherComplete = TeacherSectionController::keep($section->id, $request->teacher_id);
+        }else {
+            $section->delete();
+            return to_route('project.section.index', $project->slug)->with('message', 'No existen encuentros para esta materia');
+        }
 
         
         return to_route('project.section.index', $project->slug)->with('message', 'Seccion Creada. '.$teacherComplete);
@@ -84,6 +91,11 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        //
+        $project = session('project');
+
+        $DelSecTeach = teacher_section::where('section_id', $section->id)->delete();
+        $borrado = $section->name;
+        $section->delete();
+        return to_route('project.section.index', $project->slug)->with('message', 'Seccion "'.$borrado.'" Eliminada.');
     }
 }

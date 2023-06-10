@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hour;
 use App\Models\SchemeHour;
+use App\Models\Shift;
+use App\Models\ShiftHour;
 use Illuminate\Http\Request;
 
 class SchemeHourController extends Controller
@@ -42,9 +45,14 @@ class SchemeHourController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SchemeHour $schemeHour)
+    public function show(SchemeHour $schemehour)
     {
-        //
+        return inertia('Hour/schemeHour',[
+            'shifts' => Shift::all(),
+            'hours' => Hour::where('scheme_hour_id', $schemehour->id)->get(),
+            'hour_shifts' => ShiftHour::all(),
+            'schemehour' => $schemehour,
+        ]);
     }
 
     /**

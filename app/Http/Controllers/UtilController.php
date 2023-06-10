@@ -12,6 +12,6 @@ class UtilController extends Controller
     public function borrar()
     {
         
-        Classroom_type::truncate();
+        return ;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\Classroom_type;
 use App\Models\Meeting;
+use App\Models\Pensum;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,8 @@ class MeetingController extends Controller
         return inertia('Meeting/subjectMeeting',[
             'meetings' => Meeting::where('subject_id', $subject->id)->get(),
             'classroom_types' => Classroom_type::all(),
-            'subject' => $subject
+            'subject' => $subject,
+            'pensum' => Pensum::where('id', $subject->pensum_id)->get()
         ]);
     }
 

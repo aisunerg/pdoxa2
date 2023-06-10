@@ -18,3 +18,9 @@ export function relaciona (teachsecs, section_id, teachers){
     let teacher = teachers.find(e => e.id == tea_sec.teacher_id);
     return teacher.name+" "+teacher.lastname;
 }
+
+export function relShiftHour (shifthour, hour_id, shifts){
+    let shi_hou = shifthour.find(e => e.hour_id == hour_id );
+    let shift = shifts.find(e => e.id == shi_hou.shift_id);
+    return shift.name;
+}

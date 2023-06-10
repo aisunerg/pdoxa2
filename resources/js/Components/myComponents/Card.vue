@@ -1,7 +1,11 @@
 <script setup>
-    defineProps({
+    const props = defineProps({
         id:{
-            type: String,
+            type: Number,
+            default: null
+        },
+        meeting:{
+            type: Object,
             default: null
         },
         draggable:{
@@ -18,16 +22,18 @@
 
         e.dataTransfer.clearData();
         e.dataTransfer.setData('id', target.id);
+        
+        e.dataTransfer.setData('meet', JSON.stringify(props.meeting));
 
-        setTimeout(() => {
-            target.style.display = "none";
-        }, 0);
+        // setTimeout(() => {
+        //     target.style.display = "none";
+        // }, 0);
     }
 </script>
 
 <template>
     <div 
-        class="w-32 h-12 bg-red-300 rounded-lg p-1 place-content-center"
+        class="cursor-pointer bg-red-300 rounded-lg p-1 place-content-center"
         :id="id"
         :draggable="draggable"
         @dragstart="dragStart"

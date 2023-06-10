@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Block;
 use App\Models\Classroom;
 use App\Models\Classroom_type;
+use App\Models\Day;
+use App\Models\Hour;
 use App\Models\Project;
 use App\Models\SchemeDay;
 use App\Models\SchemeHour;
@@ -50,8 +53,27 @@ class ClassroomController extends Controller
         $classroom->scheme_hour_id = $request->scheme_hour;
 
         $classroom->save();
+        
+        // CREANDO BLOQUES SIN ASIGNAR
+        $days = Day::where('scheme_day_id', $classroom->scheme_day_id)->get();
+        $hours = Hour::where('scheme_hour_id', $classroom->scheme_hour_id)->get();
 
-        return to_route('project.classroom.index', $project->slug)->with('message', 'Aula Creada!');
+        foreach ($days as $day) {
+            foreach ($hours as $hour) {
+                $block = new Block();
+                
+                $block->classroom_id = $classroom->id;
+                $block->day_id = $day->id;
+                $block->hour_id = $hour->id;
+                $block->active = 1;
+                $block->meeting_section_id = NULL;
+                $block->save();
+
+            }
+        }
+
+
+        return to_route('project.classroom.index', $project->slug)->with('message', 'Aula Creada! Nuevos Bloques Disponibles.');
     }
 
     /**

@@ -1,13 +1,38 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, router, useForm } from '@inertiajs/vue3';
 import { defineComponent } from 'vue';
 
-defineProps({
+const props = defineProps({
     id:{
         type: String,
         default: null
-    }
+    },
+    classroom:{
+        type: String,
+        default: null,
+        required
+    },
+    day:{
+        type: String,
+        default: null,
+        required
+    },
+    hour:{
+        type: String,
+        default: null,
+        required
+    },
 })
+
+const form = useForm({
+    classroom: props.classroom,
+    day: props.day,
+    hour: props.hour
+}) 
+
+form.post(route('master.assign'))
+
+
 
 function drop(e) {
     console.log("soltaste loco");

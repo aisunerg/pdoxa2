@@ -7,6 +7,8 @@ use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ClassroomTypeController;
 use App\Http\Controllers\DayController;
 use App\Http\Controllers\DepartamentController;
+use App\Http\Controllers\HourController;
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MunicipyController;
 use App\Http\Controllers\PensumController;
@@ -126,6 +128,9 @@ Route::middleware('auth')->group(function () {
     //SCHEME HOUR
     Route::resource('schemehour', SchemeHourController::class);
 
+    //HOUR
+    Route::resource('hour', HourController::class);
+
     //UBICATION
     Route::resource('ubication', UbicationController::class);
 
@@ -133,7 +138,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('meeting', MeetingController::class);
     Route::get('meetingS/{subject}', [MeetingController::class, 'meetingSubject'])->name('meetingSubject');
 
-    //
+    //MASTER CLASS
+    Route::get('MasterClass', [MasterController::class, 'view'])->name('master.view');
+    Route::post('MasterClass/Assigned', [MasterController::class, 'isAssigned'])->name('master.assigned');
+    Route::post('MasterClass/Assigment', [MasterController::class, 'Assigment'])->name('master.assigment');
 
 
 });

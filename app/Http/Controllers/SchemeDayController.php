@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Day;
 use App\Models\SchemeDay;
+use App\Models\ShiftHour;
 use Illuminate\Http\Request;
 
 class SchemeDayController extends Controller

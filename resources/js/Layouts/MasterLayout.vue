@@ -1,11 +1,19 @@
 <script setup>
-    import ProjectAsidebar from "@/Layouts/Components/ProjectAsidebar.vue";
+    import MasterAsidebar from "@/Layouts/Components/MasterAsidebar.vue";
     import Dropdown from "@/Components/Dropdown.vue";
 
     defineProps({
-        SelectProject: {
-            type: Object,
-            default: null
+        subjects: {
+            type: Object
+        },
+        sections: {
+            type: Object
+        },
+        sec_met: {
+            type: Object
+        },
+        meetings: {
+            type: Object
         },
     });
     
@@ -14,7 +22,7 @@
 <template>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" >
     <!-- Desktop sidebar -->
-    <ProjectAsidebar :project="SelectProject"/>
+    <MasterAsidebar :subjects="subjects" :sections="sections" :sec_met="sec_met" :meetings="meetings"/>
     
     <!-- Backdrop -->
     <div class="flex flex-col flex-1 w-full">
@@ -205,7 +213,7 @@
           </div>
       </header>
       <main class="h-full overflow-y-auto ">
-        <div class="container grid px-6 mx-auto">
+        <div class="container grid  mx-auto">
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 <slot name="header"/>
             </h2>   

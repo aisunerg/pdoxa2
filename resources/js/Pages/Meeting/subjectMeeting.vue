@@ -4,6 +4,7 @@
     import { selectObj, relaciona } from '@/utilidades';
     import DropdownX from '@/Components/DropdownX.vue';
     import formMeeting from '@/Pages/Meeting/formMeeting.vue';
+import Back from '@/Components/myComponents/Back.vue';
     
 
     const props = defineProps({
@@ -18,6 +19,10 @@
         subject:{
             type:Object,
             default:null
+        },
+        pensum:{
+            type:Object,
+            default:null
         }
     })
 
@@ -29,7 +34,7 @@
 <template>
     <Head title="Encuentros"/>
         <Suspense>
-            <MyLayout :project="project">
+            <MyLayout >
                 <template #header>
                         <div class="">
                             Encuentros de {{ subject.name }}
@@ -38,7 +43,7 @@
                 <div class="flex flex-col">
                     <div class="">Unidades de Credito: {{ subject.u_c }}</div>
                     <div class="">Horas: {{ subject.h_s }}</div>
-                    <div class="">Pensum: {{  }}</div>
+                    <div class="">Pensum: <Back :href="route('pensum.show', pensum[0].id)">{{ pensum[0].name }}</Back></div>
                     <div class="">Nivel: {{ subject.level }}</div>
                     <div class="">Departamento: {{ subject.departament_id }}</div>
                 </div>

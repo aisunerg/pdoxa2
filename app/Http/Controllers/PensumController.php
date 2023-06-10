@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Career;
 use App\Models\Pensum;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class PensumController extends Controller
@@ -51,7 +52,11 @@ class PensumController extends Controller
      */
     public function show(Pensum $pensum)
     {
-        //
+        // return Subject::where('pensum_id', $pensum->id)->get();
+        return inertia('Pensum/showPensum',[
+            'pensum' => $pensum,
+            'subjects' => Subject::where('pensum_id', $pensum->id)->get()
+        ]);
     }
 
     /**

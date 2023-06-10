@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { selectObj, store } from "@/utilidades";
+import { ref } from 'vue';
 
 
 const props = defineProps({
@@ -25,8 +26,11 @@ const form = useForm({
     classroom_type: ''
 })
 
+let mask = ref(null);
+
 if (props.subject) {
     form.subject = props.subject.id;
+    mask= props.subject.name
 }
 
 const create = () => {
@@ -44,6 +48,7 @@ const create = () => {
                 
                 <TextInput v-if="subject"
                     class=""
+                    v-model="mask"
                     :value="subject.name"
                     type="text" 
                     required

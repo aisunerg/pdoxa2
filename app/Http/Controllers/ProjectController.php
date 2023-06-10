@@ -11,6 +11,7 @@ class ProjectController extends Controller
 {
     public function selectProject(Project $project)
     {
+        session(['project' => $project]);
         return Inertia::render('Project/selectProject', [
             'project' => $project,
         ]);
