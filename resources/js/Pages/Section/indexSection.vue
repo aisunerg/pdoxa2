@@ -27,10 +27,6 @@
             type: Object,
             default: null
         },
-        teachsecs: {
-            type: Object,
-            default: null
-        },
     });
 
     function eliminar(id) {
@@ -95,7 +91,8 @@
                                         <p class="font-semibold">{{selectObj(section.subject_id, subjects)}}</p>
                                     </td>
                                     <td class="px-4 py-3" >
-                                        {{relaciona(teachsecs, section.id, teachers)}}
+                                        <!-- {{relaciona(teachsecs, section.id, teachers)}} -->
+                                        {{ section.teacher[0].name+" "+section.teacher[0].lastname }}
                                     </td>
                                     <td class="px-4 py-3">
                                             <p class="">{{section.quota}}</p>

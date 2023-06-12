@@ -21,4 +21,10 @@ class Teacher extends Model
     {
         return $this->hasMany(Card::class, 'teacher_id');
     }
+
+    //MUCHOS A MUCHOS
+    public function secciones()
+    {
+        return $this->belongsToMany('App/Models/Section', 'teacher_sections');
+    }
 }

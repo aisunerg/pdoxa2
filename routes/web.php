@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
     {
         return inertia('Welcome');
     });
-
+    Route::get('util', [UtilController::class, 'borrar']);
 
     // RUTAS DEL PROYECTO
 

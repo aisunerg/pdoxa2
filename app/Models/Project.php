@@ -20,4 +20,9 @@ class Project extends Model
     {
         return 'slug';
     }
+
+    public function classrooms()
+    {
+        return $this->hasMany(Classroom::class);
+    }
 }

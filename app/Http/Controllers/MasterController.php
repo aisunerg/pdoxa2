@@ -8,6 +8,7 @@ use App\Models\Day;
 use App\Models\Hour;
 use App\Models\Meeting;
 use App\Models\MeetingSection;
+use App\Models\Project;
 use App\Models\SchemeDay;
 use App\Models\SchemeHour;
 use App\Models\Section;
@@ -22,14 +23,13 @@ class MasterController extends Controller
     {
         $project = session('project');
 
-        $classrooms = Classroom::where('project_id', $project->id)->get();
+        $classrooms = Project::find($project->id)->classrooms;
         $long = count($classrooms);
         $blocks = [];
         foreach ($classrooms as $classroom) {
-            $selBlocks = Block::where('classroom_id', $classroom->id)->get();
+            $selBlocks = Classroom::find($classroom->id)->blocks;
             $blocks = array_merge($blocks, $selBlocks->toArray());
         }
-
 
         return inertia('Master/viewMaster',[
             'subjects' => Subject::all(),

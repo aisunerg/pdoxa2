@@ -20,8 +20,7 @@ class SectionController extends Controller
     {
         return inertia('Section/indexSection',[
             'project' => $project,
-            'sections' => Section::where('project_id', $project->id)->get(),
-            'teachsecs' => teacher_section::all(),
+            'sections' => Section::with('teacher')->where('project_id', $project->id)->get(),
             'shifts' => Shift::all(),
             'subjects' => Subject::where('pensum_id', $project->pensum_id)->orderBy('level')->get(), 
             'teachers' => Teacher::where('id', 'LIKE', '%%')->orderBy('name')->get(), 
@@ -52,7 +51,8 @@ class SectionController extends Controller
         
         $meetingComplete = MeetingSectionController::keep($section->id, $section->subject_id);
         if ($meetingComplete) {
-            $teacherComplete = TeacherSectionController::keep($section->id, $request->teacher_id);
+            $section->teacher()->attach($request->teacher_id);
+            $teacherComplete = "Relacion Lista";
         }else {
             $section->delete();
             return to_route('project.section.index', $project->slug)->with('message', 'No existen encuentros para esta materia');
@@ -92,9 +92,8 @@ class SectionController extends Controller
     public function destroy(Section $section)
     {
         $project = session('project');
-
-        $DelSecTeach = teacher_section::where('section_id', $section->id)->delete();
         $borrado = $section->name;
+        $section->teacher()->detach($section->teacher[0]->id);
         $section->delete();
         return to_route('project.section.index', $project->slug)->with('message', 'Seccion "'.$borrado.'" Eliminada.');
     }
