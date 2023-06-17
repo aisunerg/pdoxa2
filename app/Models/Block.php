@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Block extends Model
 {
@@ -11,6 +12,11 @@ class Block extends Model
 
     public function classrooms()
     {
-        return $this->belongsTo(Classroom::class);
+        return $this->belongsTo(Classroom::class,'classroom_id');
+    }
+
+    public function meetsec()
+    {
+        return $this->belongsTo(MeetingSection::class, 'meeting_section_id');
     }
 }

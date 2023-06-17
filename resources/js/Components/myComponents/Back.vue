@@ -13,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-    <Link :href="href" class="text-sm bg-purple-400 text-white rounded-xl p-1 pt-1 mr-1"  >
+    <Link :href="href" class="text-sm bg-purple-400 hover:bg-purple-600 text-white rounded-xl p-1 pt-1 mr-1 cursor-pointer"  >
         <slot />
     </Link>  
     

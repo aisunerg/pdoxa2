@@ -8,6 +8,10 @@
             type: Object,
             default: null
         },
+        projects: {
+            type: Object,
+            default: null
+        },
     });
     
 </script>
@@ -15,7 +19,7 @@
 <template>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" >
     <!-- Desktop sidebar -->
-    <Asidebar :project="project"/>
+    <Asidebar :project="project" :projects="projects"/>
     
     <!-- Backdrop -->
     <div class="flex flex-col flex-1 w-full">

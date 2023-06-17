@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Block;
-use App\Models\Classroom;
 use App\Models\Section;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class UtilController extends Controller
 {
     public function borrar()
     {
-        // $section = Block::with('classrooms')->get();
-        $obj = Classroom::with('blocks')->find(11);
+        
+        $obj = Block::find(81);
 
         
 
-        return dd($obj->toArray());
+        // return dd($obj);
+        return $obj->classrooms;
     }
 }

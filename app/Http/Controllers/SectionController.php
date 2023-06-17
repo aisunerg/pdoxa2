@@ -49,10 +49,34 @@ class SectionController extends Controller
         $section->shift_id = $request->shift_id;
         $section->save();
         
-        $meetingComplete = MeetingSectionController::keep($section->id, $section->subject_id);
+        $project = session('project');
+        
+        try {
+            $subject = Subject::find($request->subject);
+            $limit = count($subject->meetings->toArray());
+            if ($limit == 0) {
+                $section->delete();
+                return to_route('project.section.index', $project->slug)->with('message', 'La materia "'.$subject->name.'" no tiene encuentros asignados');
+            }
+            foreach ($subject->meetings as $meeting) {
+                $section->meetings()->attach($meeting->id);
+            }
+            $meetingComplete = "Encuentro Relacionado";//MeetingSectionController::keep($section->id, $section->subject_id);
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Manejo de la excepción
+            $section->delete();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1452) {
+                // Manejo específico para el error de clave inexistente
+                return to_route('project.section.index', $project->slug)->with('message', 'La materia "'.$subject->name.'" no tiene encuentros asignados');
+            } else {
+                return to_route('project.section.index', $project->slug)->with('message', 'Ha ocurrido un error en la base de datos');
+            }
+        }
+        
         if ($meetingComplete) {
             $section->teacher()->attach($request->teacher_id);
-            $teacherComplete = "Relacion Lista";
+            $teacherComplete = "Profesor Relacionado";
         }else {
             $section->delete();
             return to_route('project.section.index', $project->slug)->with('message', 'No existen encuentros para esta materia');

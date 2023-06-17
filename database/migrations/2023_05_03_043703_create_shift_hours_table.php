@@ -15,8 +15,12 @@ return new class extends Migration
     {
         Schema::create('shift_hours', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('hour_id');
-            $table->bigInteger('shift_id');
+            $table->unsignedBigInteger('hour_id');
+            $table->unsignedBigInteger('shift_id');
+
+            $table->foreign('hour_id')->references('id')->on('hours')->onDelete('cascade');
+            $table->foreign('shift_id')->references('id')->on('shifts')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

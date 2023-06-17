@@ -13,4 +13,14 @@ class Classroom extends Model
     {
         return $this->hasMany(Block::class);
     }
+
+    public function ubication()
+    {
+        return $this->belongsTo(Ubication::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Classroom_type::class, 'classroom_type_id');
+    }
 }

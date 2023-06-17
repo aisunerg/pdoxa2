@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('enconters', function (Blueprint $table) {
+        Schema::create('meetings', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('subject_id');
             $table->tinyInteger('hour_amount');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('enconters');
+        Schema::dropIfExists('meetings');
     }
 };

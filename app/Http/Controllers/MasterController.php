@@ -23,20 +23,25 @@ class MasterController extends Controller
     {
         $project = session('project');
 
+        if ($project == null) {
+            return to_route('mydash');
+        }
+
         $classrooms = Project::find($project->id)->classrooms;
         $long = count($classrooms);
         $blocks = [];
         foreach ($classrooms as $classroom) {
-            $selBlocks = Classroom::find($classroom->id)->blocks;
+            $selBlocks = Block::where('classroom_id', $classroom->id)->with('meetsec')->get();
             $blocks = array_merge($blocks, $selBlocks->toArray());
         }
 
         return inertia('Master/viewMaster',[
-            'subjects' => Subject::all(),
-            'sections' => Section::where('project_id', $project->id)->get(),
+            'subjects' => Subject::where('pensum_id', $project->pensum_id)->get(),
+            'sections' => Section::where('project_id', $project->id)->with('meetings')->with('teacher')->with('subject')->get(),
             'sec_met' => MeetingSection::all(),
             'meetings' => Meeting::all(),
-            'classrooms' => $classrooms,
+            'classrooms' => Classroom::where('project_id', $project->id)->with('ubication')->with('type')->get(),
+            'project' => $project,
             'blocks' => $blocks,
             'schemehours' => SchemeHour::all(),
             'schemedays' => SchemeDay::all(),
@@ -80,24 +85,37 @@ class MasterController extends Controller
         $meeting = $request->meet;
         $limit = $meeting['hour_amount'];
         $block = $request->block;
+
+        // VALIDAR CONCORDANCIA DE TIPO DE AULA. ENCUENTRO - AULA
+        $cBlock = Block::find($block['id']);
+        if ($cBlock->classrooms->classroom_type_id != $meeting['classroomType_id']) {
+            return to_route('master.view')->with('message', 'Tipo de aula incorrecto');
+        }
+        
+
         if (!$limit > 1) {
             return "tiene 1 hora";
         }else {
             $id = $block["id"];
-            
-            for ($i=0; $i < $limit; $i++) { 
-                // $Block = Block::where('classroom_id', $block['classroom_id'])
-                //                     ->where('day_id', $block['day_id'])
-                //                     ->where('hour_id', $block['hour_id']+$i)
-                //                     ->get();
-                // $arrayBlock = $Block->toArray();
-                // $id = $arrayBlock[0]['id'];
-                // return $id;
+
+            // VALIDAR DISPONIBILIDAD DE LOS BLOQUES
+            for ($i=0; $i < $limit ; $i++) { 
                 $aBlock = Block::find($id+$i);
+                if ($aBlock->meeting_section_id != null) {
+                    return to_route('master.view')->with('message', 'Bloque ocupado');
+                }
+            }
+            
+            for ($i=0; $i < $limit; $i++) {
+                $aBlock = Block::find($id+$i);
+                if ($aBlock->meeting_section_id != null) {
+                    
+                    return to_route('master.view');
+                }
                 $aBlock->meeting_section_id = $request->meetsec;
                 $aBlock->save();
             }
-            return "cool";
+            return to_route('master.view');
         }
     }
 }

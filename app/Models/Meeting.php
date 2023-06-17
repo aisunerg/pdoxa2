@@ -9,5 +9,9 @@ class Meeting extends Model
 {
     use HasFactory;
 
-    protected $table = 'enconters';
+
+    public function sections()
+    {
+        return $this->belongsToMany(Section::class, 'meeting_sections');
+    }
 }

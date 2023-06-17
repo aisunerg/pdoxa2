@@ -10,6 +10,10 @@
         project: {
             type: Object,
             default: null
+        },
+        projects: {
+            type: Object,
+            default: null
         }
    })
 
@@ -27,18 +31,22 @@
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <Link
             class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-            :href="route('mydash')"
+                :href="route('mydash')"
             >
             pDoxa
             </Link>
             <ul class="mt-6"> 
                 <li v-if="project" class="relative px-2 py-3">
-                    <Link class="p-1 flex flex-row items-center justify-between bg-blue-400 rounded-md text-white " :href="route('mydash')">
-                        <div class="text-xs">
-                            {{ project.name }}
-                        </div>
-                        <div class="font-bold p-1 mr-2">X</div>
-                    </Link>
+                    <div class="p-1 flex flex-row items-center justify-between bg-blue-400 rounded-md text-white ">
+                        <Link class="hover:font-semibold " :href="route('project.select', project)">
+                            <div class="text-xs truncate">
+                                {{ project.name }}
+                            </div>
+                        </Link>
+                        <Link class="hover:text-red-600" :href="route('mydash')">
+                            <div class="font-bold p-1 mr-2">X</div>
+                        </Link>
+                    </div>
                 </li>           
                 <li class="relative px-2 py-3">
                     <!-- Proyecto -->
@@ -150,6 +158,7 @@
                         </button>
                     </Link>
                 </li>
+                <!-- Mestro de Aula -->
                 <li v-if="project" class="relative px-6 py-3">
                     <Link :href="route('master.view')">
                         <button

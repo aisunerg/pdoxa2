@@ -54,10 +54,30 @@ class ClassroomController extends Controller
 
         $classroom->save();
         
-        // CREANDO BLOQUES SIN ASIGNAR
+        //DIAS Y HORAS ASIGNADOS SEGUN ESQUEMA
         $days = Day::where('scheme_day_id', $classroom->scheme_day_id)->get();
         $hours = Hour::where('scheme_hour_id', $classroom->scheme_hour_id)->get();
+        
+        //VERIFICANDO EXISTENCIAS DE DIAS Y HORAS
+        $limitD = count($days);
+        $limitH = count($hours);
 
+        if ($limitD == 0 || $limitH == 0) {
+            $ERROR = "";
+            
+            if ($limitD == 0) {
+                $ERROR .= "No existen Dias agregados al Esquema. "; 
+            }
+            
+            if ($limitH == 0) {
+                $ERROR .= "No existen Horas agregadas al Esquema."; 
+            }
+            $classroom->delete();
+            return to_route('project.classroom.index', $project->slug)->with('message', 'ERROR. '.$ERROR);
+        }
+        
+        
+        // CREANDO BLOQUES SIN ASIGNAR
         foreach ($days as $day) {
             foreach ($hours as $hour) {
                 $block = new Block();
@@ -71,7 +91,6 @@ class ClassroomController extends Controller
 
             }
         }
-
 
         return to_route('project.classroom.index', $project->slug)->with('message', 'Aula Creada! Nuevos Bloques Disponibles.');
     }
@@ -105,9 +124,9 @@ class ClassroomController extends Controller
      */
     public function destroy(Classroom $classroom)
     {
-        $project = Project::where('id', $classroom->project_id)->get();
+        $project = session('project');
         $borrado = $classroom->name;
         $classroom->delete();
-        return to_route('project.classroom.index', $project[0]->slug)->with('message', 'Aula: "'.$borrado.'", Eliminada!');
+        return to_route('project.classroom.index', $project->slug)->with('message', 'Aula: "'.$borrado.'", Eliminada!');
     }
 }

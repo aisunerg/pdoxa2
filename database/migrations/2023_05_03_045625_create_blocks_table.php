@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('blocks', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('classroom_id');
+            $table->unsignedBigInteger('classroom_id');
             $table->bigInteger('day_id');
             $table->bigInteger('hour_id');
             $table->tinyInteger('active');
-            $table->bigInteger('meeting_section_id');
+            $table->bigInteger('meeting_section_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
         });
     }
 

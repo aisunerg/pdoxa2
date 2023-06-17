@@ -27,6 +27,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UbicationController;
 use App\Http\Controllers\UtilController;
+use App\Models\Project;
 use App\Models\SchemeDay;
 
 // Login de Laravel
@@ -37,11 +38,9 @@ Route::get('/', function () {
     //     'laravelVersion' => Application::VERSION,
     //     'phpVersion' => PHP_VERSION,
     // ]);
-    return Inertia::render('Auth/Login', [
-        'canResetPassword' => Route::has('password.request'),
-        'status' => session('status'),
-    ]);
+    return redirect('myDash');
 });
+
 //  Dashboard de Laravel
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -57,12 +56,16 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     /* MIS RUTAS */
     Route::get('/myDash', function (){
-        return Inertia::render('MyDashboard');
+        return Inertia::render('MyDashboard', [
+            'projects' => Project::all(),
+        ]);
     })->name('mydash');
+
     Route::get('welcome', function ()
     {
         return inertia('Welcome');
     });
+
     Route::get('util', [UtilController::class, 'borrar']);
 
     // RUTAS DEL PROYECTO

@@ -42,7 +42,7 @@
                     >
                         <template #trigger>
                             <div class="w-full bg-slate-200 p-2">
-                                Agregar Nuevo Turno
+                                Agregar Nuevo Esquema
                                 <span class="font-bold">+</span>
                             </div>
                         </template>

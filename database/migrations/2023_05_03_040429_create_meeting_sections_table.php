@@ -15,8 +15,14 @@ return new class extends Migration
     {
         Schema::create('meeting_sections', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('section_id');
-            $table->bigInteger('meeting_id');
+            $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('meeting_id');
+
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
+            $table->foreign('meeting_id')->references('id')->on('meetings')->onDelete('cascade');
+
+
+
             $table->timestamps();
         });
     }

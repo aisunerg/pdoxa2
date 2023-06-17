@@ -23,23 +23,24 @@ const props = defineProps({
         default: null,
         required: true
     },
+    section:{
+        type: Object,
+        default: null
+    },
     block:{
         type: Object,
         default: null,
         required: true
     },
-})
-
-
-
+});
 
 
 
 function drop(e) {
-    console.log("soltaste loco");
+    // console.log("soltaste loco");
     const meetsec_id = e.dataTransfer.getData('id');
     const meet = e.dataTransfer.getData('meet');
-    console.log("id meet: "+meet);
+    // console.log("id meet: "+meet);
     let form = useForm({
         block: props.block,
         meetsec: meetsec_id,
@@ -59,12 +60,13 @@ function drop(e) {
 <template>
     <div v-if="block.meeting_section_id != null"
         :id="id"
-        class="rounded-lg p-1 bg-purple-200 flex flex-col h-10 w-full text-purple-800"
+        class="rounded-lg  border-2 border-purple-200 flex flex-col h-10 w-full text-purple-800"
 
         @dragover.prevent
         @drop.prevent="drop"
     >
-        ASIGNADO
+        <div class="text-xs rounded-t-lg bg-purple-200 px-1">{{ section.subject.name }}</div> 
+        <div class="text-sm px-1">{{ section.teacher[0].name+" "+section.teacher[0].lastname+" / Seccion: "+section.name }}</div>
     </div>    
     <div v-else
         class="rounded-lg p-1 bg-neutral-200 flex flex-col h-10 w-full"

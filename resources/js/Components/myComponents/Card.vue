@@ -15,10 +15,7 @@
     })
 
     function dragStart(e) {
-        console.log('me empezaste a mover loco');
         const target = e.target;
-
-        console.log(target.id);
 
         e.dataTransfer.clearData();
         e.dataTransfer.setData('id', target.id);

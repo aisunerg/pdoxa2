@@ -47,12 +47,12 @@ const open = ref(false);
 
 <template>
     <div class="relative">
-        <div @click="open = !open">
+        <div @click="open = !open" class="cursor-pointer">
             <slot name="trigger" />
         </div>
 
         <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="fixed inset-0 z-40" @click="open = false"></div>
+        <div v-show="open" class="fixed inset-0 z-40 cursor-alias" @click="open = false"></div>
 
         <transition
             enter-active-class="transition ease-out duration-200"
