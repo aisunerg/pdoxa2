@@ -44,7 +44,7 @@
             <MyLayout :project="project">
                 <template #header>
                         <div class="">
-                            Secciones del Proyecto {{ project.name }}
+                            Aulas del Proyecto {{ project.name }}
                         </div>
                 </template>
                 <div v-if="$page.props.flash.message" class="flex">

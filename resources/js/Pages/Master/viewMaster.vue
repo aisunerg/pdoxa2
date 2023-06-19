@@ -90,7 +90,6 @@ import Modal from '@/Components/Modal.vue';
                 <div 
                     class="bg-purple-200 p-1 px-2 ml-2 outline outline-offset-1 outline-2 outline-white hover:outline-purple-500 cursor-pointer rounded-t-lg" 
                     @click="selClassroom = classroom"
-                    
                 >
                     {{ classroom.name }}
                 </div>
