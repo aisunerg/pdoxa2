@@ -17,7 +17,7 @@ class Section extends Model
 
     public function meetings()
     {
-        return $this->belongsToMany(Meeting::class, 'meeting_sections');
+        return $this->belongsToMany(Meeting::class, 'meeting_sections')->withPivot('id');
     }
 
     public function subject()

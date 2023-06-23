@@ -37,8 +37,8 @@ import { ref } from 'vue';
     let block = function (aClassroom, aDay, aHour){
         
         
-        let aBlock = props.blocks.find(b =>{return b.classroom_id == aClassroom.id && b.day_id == aDay && b.hour_id == aHour} )
-        
+        let aBlock = props.blocks.find(b =>{return b.classroom_id == aClassroom.id && b.day_id == aDay && b.hour_id == aHour} );
+
         if (aBlock.meeting_section_id != null) {
             aSection = props.sections.find(b =>{return b.id == aBlock.meetsec.section_id } );            
         }else{

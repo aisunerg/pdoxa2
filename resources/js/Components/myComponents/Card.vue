@@ -1,4 +1,6 @@
 <script setup>
+import { onMounted } from 'vue';
+
     const props = defineProps({
         id:{
             type: Number,
@@ -14,6 +16,9 @@
         },
     })
 
+    onMounted(() => {        
+        console.log('CARGADO')
+    });
     function dragStart(e) {
         const target = e.target;
 
@@ -30,7 +35,7 @@
 
 <template>
     <div 
-        class="cursor-pointer bg-red-300 rounded-lg p-1 place-content-center"
+        class=" bg-gradient-to-b from-purple-100 to-purple-300 shadow-inner rounded-md cursor-pointer place-content-center"
         :id="id"
         :draggable="draggable"
         @dragstart="dragStart"

@@ -10,8 +10,9 @@ class Meeting extends Model
     use HasFactory;
 
 
+
     public function sections()
     {
-        return $this->belongsToMany(Section::class, 'meeting_sections');
+        return $this->belongsToMany(Section::class, 'meeting_sections')->withPivot('id');
     }
 }

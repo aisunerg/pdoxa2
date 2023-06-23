@@ -19,4 +19,14 @@ class Block extends Model
     {
         return $this->belongsTo(MeetingSection::class, 'meeting_section_id');
     }
+
+    public function day()
+    {
+        return $this->belongsTo(Day::class);
+    }
+
+    public function hour()
+    {
+        return $this->belongsTo(Hour::class);
+    }
 }

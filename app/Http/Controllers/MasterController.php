@@ -31,7 +31,7 @@ class MasterController extends Controller
         $long = count($classrooms);
         $blocks = [];
         foreach ($classrooms as $classroom) {
-            $selBlocks = Block::where('classroom_id', $classroom->id)->with('meetsec')->get();
+            $selBlocks = Block::where('classroom_id', $classroom->id)->with('meetsec')->with('classrooms')->with('day')->with('hour')->get();
             $blocks = array_merge($blocks, $selBlocks->toArray());
         }
 
@@ -39,7 +39,6 @@ class MasterController extends Controller
             'subjects' => Subject::where('pensum_id', $project->pensum_id)->get(),
             'sections' => Section::where('project_id', $project->id)->with('meetings')->with('teacher')->with('subject')->get(),
             'sec_met' => MeetingSection::all(),
-            'meetings' => Meeting::all(),
             'classrooms' => Classroom::where('project_id', $project->id)->with('ubication')->with('type')->get(),
             'project' => $project,
             'blocks' => $blocks,

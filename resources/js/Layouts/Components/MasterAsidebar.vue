@@ -13,10 +13,7 @@ import Card from "@/Components/myComponents/Card.vue";
         sections: {
             type: Object
         },
-        sec_met: {
-            type: Object
-        },
-        meetings: {
+        blocks: {
             type: Object
         },
         project: {
@@ -28,7 +25,7 @@ import Card from "@/Components/myComponents/Card.vue";
    let aSubject = ref(null);
    let aSection = ref(null);
    let aSections = ref(null);
-   let meet = ref(false);
+   let aMeetings;
 
    watch(aSubject, (newValue, oldValue) => {
         // Aquí puedes ejecutar el código que necesites
@@ -36,29 +33,36 @@ import Card from "@/Components/myComponents/Card.vue";
                 return e.subject_id == newValue.id
             });
         aSection.value = null;
-        meet = false;
         aSections = selSections;
     })
 
    watch(aSection, (newValue, oldValue) => {
         // Aquí puedes ejecutar el código que necesites
-        meet = false;
+        console.log('la seccion cambio Nuevo: '+newValue+" Viejo: "+oldValue);
+        if (newValue != null) {
+            console.log(newValue.meetings);
+            aMeetings = newValue.meetings;
+        }
     })
 
-  
-   const utilMeeting = (secmeet_id, meetings) => {
-        let meet = meetings.find(e => e.id == secmeet_id)
-        return meet;
+    let selBlocks = ref(null);
+
+    function asignado(secmeet_id){
+        console.log('Asignado');
+
+        let asigna = props.blocks.filter(function (e) {
+            return e.meeting_section_id == secmeet_id;
+        });
+
+        if (asigna.length == 0) {
+            console.log('Libre');
+            return false;
+        }else{
+            selBlocks.value = asigna;
+            return true;
+        }
+        
    }
-
-   const utilSecMeet = (section, sec_met) => {
-        let meets = sec_met.filter(function (e) {
-            return e.section_id == section.id;
-        })
-        return meets;
-   }
-
-
 
 </script>
 
@@ -154,103 +158,44 @@ import Card from "@/Components/myComponents/Card.vue";
                 <!-- Encuentros -->
                 <li v-if="aSection == null" class="relative px-2 py-3">
                 </li>
-                <li class="relative px-6 py-3" v-else>
-                    <span>Encuentros</span>
-                    <div class=" rounded-lg bg-slate-200 space-y-1 ">
-                        <div v-for="secmeet in utilSecMeet(aSection, sec_met)">
-                            <Card :id="secmeet.id" :meeting="utilMeeting(secmeet.meeting_id, meetings)" draggable="true">
-                                Horas: {{ utilMeeting(secmeet.meeting_id, meetings).hour_amount }}
+                <li class=" mx-2 outline outline-1 outline-purple-400 bg-slate-200 rounded-md" v-else>
+                    <div class="rounded-t-lg bg-purple-200 mb-1 px-2 pt-1 shadow-xl text-purple-950 text-sm">
+                        <span class="font-medium block">{{aSection.subject.name}}</span>
+                        <span class="font-medium block">{{"Seccion: "+aSection.name}}</span>
+                    </div>
+                    <div class=" rounded-lg bg-slate-200 space-y-2 py-3 px-1">
+                        <div v-for="meeting in aMeetings">
+                            <Card :id="meeting.pivot.id" :meeting="meeting" draggable="true">
+                                <!-- ASIGNADO -->
+                                <div v-if="asignado(meeting.pivot.id)" class="text-sm text-black text-end flex">
+                                    <div class="ml-1">
+                                        <svg class="h-3 w-3 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path id="Vector" d="M12 21V12M12 21L15 18M12 21L9 18M12 12V3M12 12H3M12 12H21M12 3L9 6M12 3L15 6M3 12L6 15M3 12L6 9M21 12L18 9M21 12L18 15" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="font-medium text-sm p-0.5 h-max-1/2 h-1/2 w-full flex flex-col justify-between">
+                                        <div class="text-start w-full">{{'Aula: '+selBlocks[0].classrooms.name}}</div>
+                                        <div class="text-start">{{selBlocks[0].day.name+": "+selBlocks[0].hour.start.slice(0, 5)+" a "+selBlocks[selBlocks.length - 1].hour.end.slice(0, 5)}}</div>
+                                    </div>  
+                                </div>
+
+                                <!-- LIBRE -->
+                                <div v-else class="text-sm text-black text-end flex p-1">
+                                    <div class="">
+                                        <svg class="h-4 w-4 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path id="Vector" d="M12 21V12M12 21L15 18M12 21L9 18M12 12V3M12 12H3M12 12H21M12 3L9 6M12 3L15 6M3 12L6 15M3 12L6 9M21 12L18 9M21 12L18 15" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="font-medium px-1 h-max-10 h-10 w-full flex justify-between">
+                                        <div class="text-start w-full">{{aSection.subject.name}}</div>
+                                        <div class="py-2 text-md">{{" "+meeting.hour_amount+"h"}}</div>
+                                    </div>
+                                </div>
                             </Card>
                         </div>
                     </div>
                 </li>
-                <!-- <li class="relative px-6 py-3">
-                <a
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="charts.html"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path
-                        d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-                    ></path>
-                    <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-                    </svg>
-                    <span class="ml-4">Charts</span>
-                </a>
-                </li>
-                <li class="relative px-6 py-3">
-                <a
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="buttons.html"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path
-                        d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-                    ></path>
-                    </svg>
-                    <span class="ml-4">Buttons</span>
-                </a>
-                </li>
-                <li class="relative px-6 py-3">
-                <a
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="modals.html"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path
-                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                    ></path>
-                    </svg>
-                    <span class="ml-4">Modals</span>
-                </a>
-                </li>
-                <li class="relative px-6 py-3">
-                <a
-                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="tables.html"
-                >
-                    <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    >
-                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                    </svg>
-                    <span class="ml-4">Tables</span>
-                </a>
-                </li> -->
+                
           </ul>
         </div>
 </aside>

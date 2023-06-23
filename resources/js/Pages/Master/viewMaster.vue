@@ -15,12 +15,6 @@ import Modal from '@/Components/Modal.vue';
         sections: {
             type: Object
         },
-        sec_met: {
-            type: Object
-        },
-        meetings: {
-            type: Object
-        },
         classrooms: {
             type: Object
         },
@@ -79,7 +73,7 @@ import Modal from '@/Components/Modal.vue';
             {{$page.props.flash.message}}
         </Modal>
     </div>
-    <MasterLayout :subjects="subjects" :sections="sections" :sec_met="sec_met" :meetings="meetings" :project="project">
+    <MasterLayout :subjects="subjects" :sections="sections" :blocks="blocks"  :project="project">
         <template #header>
                 <div class="">
                     Maestro de Aula

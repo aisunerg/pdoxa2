@@ -12,11 +12,11 @@ class UtilController extends Controller
     public function borrar()
     {
         
-        $obj = Block::find(81);
+        $obj = Section::find(2);
 
         
 
         // return dd($obj);
-        return $obj->classrooms;
+        return $obj->meetings;
     }
 }
