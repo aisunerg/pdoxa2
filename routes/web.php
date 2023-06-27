@@ -145,6 +145,7 @@ Route::middleware('auth')->group(function () {
     Route::get('MasterClass', [MasterController::class, 'view'])->name('master.view');
     Route::post('MasterClass/Assigned', [MasterController::class, 'isAssigned'])->name('master.assigned');
     Route::post('MasterClass/Assigment', [MasterController::class, 'Assigment'])->name('master.assigment');
+    Route::post('MasterClass/Unassigned', [MasterController::class, 'Unassigned'])->name('master.unassigned');
 
 
 });

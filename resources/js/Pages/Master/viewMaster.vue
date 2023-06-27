@@ -38,7 +38,7 @@ import Modal from '@/Components/Modal.vue';
         },
     })
 
-    let mostrar = ref(true);
+    let selectC = ref(null);
     let page = usePage();
     
     
@@ -83,21 +83,22 @@ import Modal from '@/Components/Modal.vue';
             <div v-for="classroom in classrooms">
                 <div 
                     class="bg-purple-200 p-1 px-2 ml-2 outline outline-offset-1 outline-2 outline-white hover:outline-purple-500 cursor-pointer rounded-t-lg" 
-                    @click="selClassroom = classroom"
+                    @click="selectC = classroom.id"
                 >
                     {{ classroom.name }}
                 </div>
             </div>
         </div>
-        <Suspense>
-                <classBlocks v-if="selClassroom" 
-                :sections="sections" 
-                :selClassroom="selClassroom" 
-                :blocks="blocks" 
-                :hours="selHour(selClassroom.scheme_hour_id)"
-                :days="selDay(selClassroom.scheme_day_id)"    
-                />
-        </Suspense>
+        <div v-for="classroom in classrooms" class="h-full" v-show="classroom.id == selectC">
+            <classBlocks
+            :selectC="selectC" 
+            :sections="sections" 
+            :classroom="classroom" 
+            :blocks="blocks" 
+            :hours="selHour(classroom.scheme_hour_id)"
+            :days="selDay(classroom.scheme_day_id)"    
+            />
+        </div>
             
     </MasterLayout>
     

@@ -61,7 +61,7 @@ class MasterController extends Controller
         
         if ($block->meeting_section_id == null) {
             return $block;
-        }else {
+        }else{
             
                     $meetsec = MeetingSection::where('id', $block->meeting_section_id)->get();
                     $section_id = $meetsec[0]->section_id;
@@ -78,43 +78,58 @@ class MasterController extends Controller
         }
     }
 
-    public function Assigment(Request $request)
-    {
+    public function Assigment(Request $request){
         
-        $meeting = $request->meet;
-        $limit = $meeting['hour_amount'];
+        //Bloque donde se asignara
         $block = $request->block;
+
+        $meetsec = MeetingSection::find($request->meetsec);
+        $meeting = Meeting::find($meetsec->meeting_id);
+
+        $limit = $meeting->hour_amount;
+        $id = $block["id"];
 
         // VALIDAR CONCORDANCIA DE TIPO DE AULA. ENCUENTRO - AULA
         $cBlock = Block::find($block['id']);
         if ($cBlock->classrooms->classroom_type_id != $meeting['classroomType_id']) {
-            return to_route('master.view')->with('message', 'Tipo de aula incorrecto');
+            return to_route('master.view')->with('message', 'Tipo de aula incorrecta');
+        }
+
+        // VALIDAR DISPONIBILIDAD DE LOS BLOQUES
+        for ($i=0; $i < $limit ; $i++) { 
+            $aBlock = Block::find($id+$i);
+            if ($aBlock->meeting_section_id != null) {
+                return to_route('master.view')->with('message', 'Bloques ocupados');
+            }
+        }
+        //Desasignar bloques si se esta moviendo un bloque
+        if ($request->move == true) {
+            $unBlock = Block::where('meeting_section_id', $meetsec->id)->update(['meeting_section_id' => NULL]);
         }
         
 
-        if (!$limit > 1) {
-            return "tiene 1 hora";
-        }else {
-            $id = $block["id"];
+       
 
-            // VALIDAR DISPONIBILIDAD DE LOS BLOQUES
-            for ($i=0; $i < $limit ; $i++) { 
-                $aBlock = Block::find($id+$i);
-                if ($aBlock->meeting_section_id != null) {
-                    return to_route('master.view')->with('message', 'Bloque ocupado');
-                }
+        
+        // ASIGNAR SECCION A LOS BLOQUES
+        for ($i=0; $i < $limit; $i++) {
+            $aBlock = Block::find($id+$i);
+            if ($aBlock->meeting_section_id != null) {                    
+                return to_route('master.view');
             }
-            
-            for ($i=0; $i < $limit; $i++) {
-                $aBlock = Block::find($id+$i);
-                if ($aBlock->meeting_section_id != null) {
-                    
-                    return to_route('master.view');
-                }
-                $aBlock->meeting_section_id = $request->meetsec;
-                $aBlock->save();
-            }
-            return to_route('master.view');
+            $aBlock->meeting_section_id = $request->meetsec;
+            $aBlock->save();
         }
+
+        return redirect()->route('master.view');
+    }
+
+    public function Unassigned(Request $request)
+    {
+        return $request;
+        $block = Block::find($request->block);
+        $unBlock = Block::where('meeting_section_id', $block->meeting_section_id)->update(['meeting_section_id' => NULL]);
+        
+        return redirect()->route('master.view');
     }
 }
