@@ -25,4 +25,9 @@ class Project extends Model
     {
         return $this->hasMany(Classroom::class);
     }
+
+    public function pensum()
+    {
+        return $this->belongsTo(Pensum::class);
+    }
 }

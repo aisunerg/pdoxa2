@@ -43,7 +43,7 @@
                     </div>
                     <div @click="$page.props.flash.message = null" class="bg-red-300 h-full rounded-r-lg pt-2 pr-2 pl-1 font-extrabold cursor-pointer">X</div>
                 </div>
-                <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                <div class="w-full h-full rounded-lg shadow-xs">
                     <DropdownX
                         width="full"
                         contentClasses=" bg-slate-200 p-2"
@@ -58,9 +58,9 @@
                             <formSubject :pensums="pensums" :departaments="departaments"/>
                         </template>
                     </DropdownX>
-                    <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
-                            <thead>
+                    <div class="w-full overflow-x-auto" style="height: 79.3%;">
+                        <table class=" whitespace-no-wrap ">
+                            <thead class="sticky top-0">
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3">Codigo</th>
                                     <th class="px-4 py-3">Nombre</th>
@@ -74,7 +74,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 h-72">
+                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                                 <tr v-for="subject in subjects" :key="subject.id" class="text-gray-700 dark:text-gray-400">
                                     
                                     <td class="px-4 py-3">
@@ -123,6 +123,7 @@
                                 </tr>                    
                             </tbody>
                         </table>
+                        <div class="w-full bg-red-400 hidden">FIN</div>
                     </div>                
                 </div>    
     </MyLayout>

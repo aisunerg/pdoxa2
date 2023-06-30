@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Pensum extends Model
 {
     use HasFactory;
+
+    public function career()
+    {
+        return $this->belongsTo(Career::class);
+    }
 }

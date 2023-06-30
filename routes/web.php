@@ -55,26 +55,31 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     /* MIS RUTAS */
-    Route::get('/myDash', function (){
-        return Inertia::render('MyDashboard', [
-            'projects' => Project::all(),
-        ]);
-    })->name('mydash');
-
+    
+    // RUTAS DEL PROYECTO
     Route::get('welcome', function ()
     {
         return inertia('Welcome');
     });
-
+    
     Route::get('util', [UtilController::class, 'borrar']);
+    
+    //DASHBOARD 
+    Route::get('/myDash', function (){
+        session(['project' => null]);
+        return Inertia::render('MyDashboard', [
+            'projects' => Project::with('pensum')->get(),
+        ]);
+    })->name('mydash');
 
-    // RUTAS DEL PROYECTO
 
     //PROJECTS
     Route::get('/myDash/{project:slug}', [ProjectController::class, 'selectProject'])->name('project.select');
+
     Route::resource('project', ProjectController::class)->parameters([
         'project' => 'project:slug',
     ]);
+
     Route::get('indexProject', [ProjectController::class, 'indexProject'])->name('indexProject');
 
     //PENSUMS

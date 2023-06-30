@@ -12,7 +12,7 @@
         blocks: {
             type: Object
         },
-        project: {
+        classtypes: {
             type: Object
         },
     });
@@ -22,7 +22,7 @@
 <template>
     <div class="flex max-h-full h-full overflow-hidden  bg-gray-50 dark:bg-gray-900" >
         <!-- Desktop sidebar -->
-        <MasterAsidebar :subjects="subjects" :sections="sections" :blocks="blocks" :project="project"/>
+        <MasterAsidebar :subjects="subjects" :sections="sections" :blocks="blocks" :classtypes="classtypes"/>
         
         <!-- Backdrop -->
         <div class="flex flex-col flex-1 w-full h-full">

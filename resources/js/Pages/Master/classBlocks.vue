@@ -104,9 +104,6 @@ import { ref, watch } from 'vue';
         return aBlock;
     }
     
-    function re() {
-        rerender()
-    }
 </script>
 
 
@@ -119,7 +116,6 @@ import { ref, watch } from 'vue';
                 <span class="ms-1">({{ classroom.type.name }})</span>
             </div>
             <div >Ubicacion - {{ classroom.ubication.name }}</div>
-            <Trash/>
         </div>
         <div class="flex h-3/4  overflow-y-auto">        
             <table class="whitespace-no-wrap ">

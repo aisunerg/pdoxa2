@@ -33,7 +33,7 @@ import Modal from '@/Components/Modal.vue';
         blocks: {
             type: Object
         },
-        project: {
+        classtypes: {
             type: Object
         },
     })
@@ -73,16 +73,16 @@ import Modal from '@/Components/Modal.vue';
             {{$page.props.flash.message}}
         </Modal>
     </div>
-    <MasterLayout :subjects="subjects" :sections="sections" :blocks="blocks"  :project="project">
+    <MasterLayout :subjects="subjects" :sections="sections" :blocks="blocks" :classtypes="classtypes">
         <template #header>
                 <div class="">
-                    Maestro de Aula
+                    Maestro de Aula - {{ $page.props.sProject.name }}
                 </div>
         </template>
         <div class="flex flex-row">
             <div v-for="classroom in classrooms">
                 <div 
-                    class="bg-purple-200 p-1 px-2 ml-2 outline outline-offset-1 outline-2 outline-white hover:outline-purple-500 cursor-pointer rounded-t-lg" 
+                    class=" select-none bg-purple-200 p-1 px-2 ml-2 outline outline-offset-1 outline-2 outline-white hover:outline-purple-500 cursor-pointer rounded-t-lg" 
                     @click="selectC = classroom.id"
                 >
                     {{ classroom.name }}

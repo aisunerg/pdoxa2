@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Block;
 use App\Models\Classroom;
+use App\Models\Classroom_type;
 use App\Models\Day;
 use App\Models\Hour;
 use App\Models\Meeting;
@@ -46,6 +47,7 @@ class MasterController extends Controller
             'schemedays' => SchemeDay::all(),
             'hours' => Hour::all(),
             'days' => Day::all(),
+            'classtypes' => Classroom_type::all(),
 
         ]);
     }
@@ -81,27 +83,35 @@ class MasterController extends Controller
     public function Assigment(Request $request){
         
         //Bloque donde se asignara
-        $block = $request->block;
+        $blockTarget = $request->block;
 
         $meetsec = MeetingSection::find($request->meetsec);
         $meeting = Meeting::find($meetsec->meeting_id);
 
-        $limit = $meeting->hour_amount;
-        $id = $block["id"];
+        $limit = $meeting->hour_amount - 1;
+        $id = $blockTarget["id"];
 
         // VALIDAR CONCORDANCIA DE TIPO DE AULA. ENCUENTRO - AULA
-        $cBlock = Block::find($block['id']);
-        if ($cBlock->classrooms->classroom_type_id != $meeting['classroomType_id']) {
+        $cBlock = Block::find($blockTarget['id']);
+        if ($blockTarget['classrooms']['classroom_type_id'] != $meeting['classroomType_id']) {
             return to_route('master.view')->with('message', 'Tipo de aula incorrecta');
         }
 
+        $aBlocks = Block::whereBetween('id', [$id, $id + $limit])->get();
+
         // VALIDAR DISPONIBILIDAD DE LOS BLOQUES
-        for ($i=0; $i < $limit ; $i++) { 
-            $aBlock = Block::find($id+$i);
-            if ($aBlock->meeting_section_id != null) {
+        foreach ($aBlocks as $block) {
+            if ($block->meeting_section_id != null) {
                 return to_route('master.view')->with('message', 'Bloques ocupados');
             }
+
+            
+
+            if ($blockTarget['day_id'] != $block->day_id) {
+                return to_route('master.view')->with('message', 'Bloques insuficientes, asegurate que el dia tenga suficientes bloques');
+            }
         }
+        
         //Desasignar bloques si se esta moviendo un bloque
         if ($request->move == true) {
             $unBlock = Block::where('meeting_section_id', $meetsec->id)->update(['meeting_section_id' => NULL]);
@@ -112,24 +122,16 @@ class MasterController extends Controller
 
         
         // ASIGNAR SECCION A LOS BLOQUES
-        for ($i=0; $i < $limit; $i++) {
-            $aBlock = Block::find($id+$i);
-            if ($aBlock->meeting_section_id != null) {                    
-                return to_route('master.view');
-            }
-            $aBlock->meeting_section_id = $request->meetsec;
-            $aBlock->save();
-        }
+        $aBlocks = Block::whereBetween('id', [$id, $id + $limit])->update(['meeting_section_id' => $request->meetsec]);
 
         return redirect()->route('master.view');
     }
 
     public function Unassigned(Request $request)
     {
-        return $request;
         $block = Block::find($request->block);
         $unBlock = Block::where('meeting_section_id', $block->meeting_section_id)->update(['meeting_section_id' => NULL]);
         
-        return redirect()->route('master.view');
+        return to_route('master.view');
     }
 }

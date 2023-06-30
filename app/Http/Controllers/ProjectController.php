@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Block;
+use App\Models\Classroom;
 use App\Models\Pensum;
 use App\Models\Project;
+use App\Models\Section;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,8 +15,28 @@ class ProjectController extends Controller
     public function selectProject(Project $project)
     {
         session(['project' => $project]);
+
+        $classrooms = Classroom::where('project_id', $project->id)->get();
+        $blocks = 0;
+        $freeBlocks = 0;
+        foreach ($classrooms as $classroom) {
+            $aBlocks = Block::where('classroom_id', $classroom->id)->get();
+            $fBlocks = array_filter($aBlocks->toArray(), function($var){
+                return $var['meeting_section_id'] == null;
+            });
+            $freeBlocks = $freeBlocks + count($fBlocks);            
+            $blocks = $blocks + count($aBlocks->toArray());            
+        
+        }
+
+
         return Inertia::render('Project/selectProject', [
             'project' => $project,
+            'pensum' => Pensum::with('career')->find($project->pensum_id),
+            'cantSec' => Section::where('project_id', $project->id)->count(),
+            'cantClass' => Classroom::where('project_id', $project->id)->count(),
+            'freeBlocks' => $freeBlocks, 
+            'Blocks' => $blocks, 
         ]);
     }
 

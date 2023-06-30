@@ -65,10 +65,10 @@
                         <formSection :shifts="shifts" :subjects="subjects" :project="project" :teachers="teachers"/>
                     </template>
                 </DropdownX>
-                <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                    <div class="w-full overflow-x-auto">
+                <div class="w-full h-full overflow-hidden rounded-lg shadow-xs">
+                    <div class="w-full overflow-x-auto" style="height: 79.1%;">
                         <table class="w-full whitespace-no-wrap">
-                            <thead>
+                            <thead class="sticky top-0">
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3">Seccion</th>
                                     <th class="px-4 py-3">Materia</th>                                    

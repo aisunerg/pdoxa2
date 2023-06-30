@@ -2,6 +2,7 @@
     import { Link, useForm } from '@inertiajs/vue3';
     import axios from 'axios';
     import { defineComponent, ref } from 'vue';
+import Trash from './Trash.vue';
 
     const props = defineProps({
         id:{
@@ -60,7 +61,6 @@
     function drop(e) {
         const meetsec = e.dataTransfer.getData('meetsec');
         const move = (e.dataTransfer.getData('move') === 'true') ? true : false;
-        console.log(move);
 
         let form = useForm({
             block: props.block,
@@ -102,9 +102,16 @@
             </div>
             {{ section.subject.name }}
         </div> 
-        <div class="text-xs px-1">{{ "Seccion: "+section.name }}</div>
-        <div class="text-xs px-1">{{ section.teacher[0].name+" "+section.teacher[0].lastname }}</div>
-        <div class="text-xs px-1">{{ "Cupo: "+section.quota }}</div>
+        <div class="flex flex-row">
+            <div class="w-9/12">
+                <div class="text-xs px-1">{{ "Seccion: "+section.name }}</div>
+                <div class="text-xs px-1">{{ section.teacher[0].name+" "+section.teacher[0].lastname }}</div>
+                <div class="text-xs px-1">{{ "Cupo: "+section.quota }}</div>
+            </div>
+            <div class="p-1">
+                <Trash :block="block"/>
+            </div>
+        </div>
     </div>
 
     <div v-else-if="block.meeting_section_id != null && type == 2"
