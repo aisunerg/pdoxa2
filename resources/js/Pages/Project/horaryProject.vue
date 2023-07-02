@@ -110,7 +110,7 @@
 
     <div class="overflow-auto w-full" style="height: 83%;">
         <div v-for="semestre in semestres" :key="semestre">
-            <div class="flex justify-end mr-5 relative"><div class="absolute bottom-0 left-0">PDF de Semestre-{{ semestre }}</div></div>
+            <!-- <div class="flex justify-end mr-5 relative"><div class="absolute bottom-0 left-0">PDF de Semestre-{{ semestre }}</div></div> -->
             <table class="w-full whitespace-no-wrap" :id="'semestre-'+semestre">
                 <thead>
                     <tr class="bg-white rounded-t-lg"><!-- Encabezado -->
