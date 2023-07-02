@@ -76,11 +76,15 @@ Route::middleware('auth')->group(function () {
     //PROJECTS
     Route::get('/myDash/{project:slug}', [ProjectController::class, 'selectProject'])->name('project.select');
 
+    //Ver Horarios y Imprimir PDFs
+    Route::get('project/horary', [ProjectController::class, 'horary'])->name('project.horary');
+    Route::get('project/teacher_horary');
     Route::resource('project', ProjectController::class)->parameters([
         'project' => 'project:slug',
     ]);
 
     Route::get('indexProject', [ProjectController::class, 'indexProject'])->name('indexProject');
+    
 
     //PENSUMS
     Route::resource('pensum', PensumController::class);
@@ -152,7 +156,7 @@ Route::middleware('auth')->group(function () {
     Route::post('MasterClass/Assigment', [MasterController::class, 'Assigment'])->name('master.assigment');
     Route::post('MasterClass/Unassigned', [MasterController::class, 'Unassigned'])->name('master.unassigned');
 
-
+    
 });
 
 

@@ -122,11 +122,11 @@
                     
                 </li>
             </ul>
-            <ul v-if="project" class="">
+            <ul v-if="$page.props.sProject" class="">
                 <div class="w-11/12 border-t-2 border-slate-200 px-4 mx-2"></div>
                 <!-- Aulas -->
                 <li  class="relative px-6 py-3">
-                    <Link :href="route('project.classroom.index', project)" >
+                    <Link :href="route('project.classroom.index', $page.props.sProject)" >
                         <button
                         class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                         >
@@ -150,7 +150,7 @@
                 </li>
                 <!-- Secciones -->
                 <li  class="relative px-6 py-3">
-                    <Link :href="route('project.section.index', project)">
+                    <Link :href="route('project.section.index', $page.props.sProject)">
                         <button
                             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             href="cards.html"
@@ -198,7 +198,35 @@
                     </Link>
                 </li>
                 <div class="w-11/12 border-t-2 border-slate-200 px-4 mx-2"></div>
-
+            </ul>
+            <ul v-if="$page.props.sProject" class="">
+                <!-- <div class="w-11/12 border-t-2 border-slate-200 px-4 mx-2"></div> -->
+                <!-- Ver Horarios -->
+                <li  class="relative px-6 py-3">
+                    <Link :href="route('project.horary')" >
+                        <button
+                            class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        >
+                            <svg
+                                class="w-5 h-5"
+                                aria-hidden="true"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                                ></path>
+                            </svg>
+                            <span class="ml-4">Ver Horarios</span>
+                        </button>
+                    </Link>
+                </li>
+                
+                <div class="w-11/12 border-t-2 border-slate-200 px-4 mx-2"></div>
             </ul>
             <ul>
                 

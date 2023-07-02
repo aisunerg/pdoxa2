@@ -7,13 +7,13 @@ use App\Models\Classroom;
 use App\Models\Pensum;
 use App\Models\Project;
 use App\Models\Section;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
-    public function selectProject(Project $project)
-    {
+    public function selectProject(Project $project){
         session(['project' => $project]);
 
         $classrooms = Classroom::where('project_id', $project->id)->get();
@@ -40,8 +40,29 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function index()
+    
+
+    public function horary()
     {
+        $project = session('project');
+
+        $classrooms = Classroom::where('project_id', $project->id)->get();
+        
+        $blocks = [];
+        foreach ($classrooms as $classroom) {
+            $aBlocks = Block::where('classroom_id', $classroom->id)->whereNotNull('meeting_section_id')->with('day')->with('hour')->with('classrooms')->get();
+            $blocks = array_merge($blocks, $aBlocks->toArray());
+        }
+
+
+        return inertia('Project/horaryProject', [
+            'subjects' => Subject::where('pensum_id', $project->pensum_id)->orderBy('name')->get(),
+            'sections' => Section::where('project_id', $project->id)->with('subject')->with('meetings')->with('teacher')->get(),
+            'blocks' => $blocks,
+        ]);
+    }    
+
+    public function index(){
         return inertia('Project/indexProjects', [
             'projects' => Project::all(),
             'pensums' => Pensum::all(),
