@@ -2,6 +2,7 @@
 import Dropdown from '@/Components/Dropdown.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import InputSelect from '@/Components/myComponents/InputSelect.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { selectObj, selectAll } from '@/utilidades';
@@ -46,7 +47,9 @@ const form = useForm({
 });
 
 const store = () => {
-    form.post(route('project.classroom.store', props.project.slug))
+    form.post(route('project.classroom.store', props.project.slug), {
+        onFinish: () => form.reset(),
+    })
 }
 </script>
 
@@ -74,24 +77,13 @@ const store = () => {
             />
             
            <div class="">
-                <Dropdown
-                    contentClasses="bg-white mt-0 overflow-y-scroll h-32"
-                    width="32"
-                    align="left" 
-                >
-                    <template #trigger>
-                        <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
-                            <div v-if="form.classroom_type != ''" class="text-sm truncate h-6 p-1">{{ selectObj(form.classroom_type, classroom_types) }}</div>
-                            <div v-else>Elige el Tipo de Aula</div>
-                        </button>
-                    </template>
-                    <template #content>
-                            <div class="px-1" @click="form.classroom_type = classroom_type.id" v-for="(classroom_type) in classroom_types" :key="classroom_type.id">
-                                <div class="hover:bg-slate-200 cursor-pointer rounded-lg pl-2">{{classroom_type.name  }}</div>
-                            </div>
-                        
-                    </template>
-                </Dropdown>
+               
+                <InputSelect 
+                    v-model="form.classroom_type"
+                    :options="classroom_types"
+                    propName="name"
+                    propValue="id"
+                />
                 <InputError class="mt-2" :message="form.errors.classroom_type" />
             </div>
         
@@ -103,7 +95,7 @@ const store = () => {
             />
             
            <div class="">
-                <Dropdown
+                <!-- <Dropdown
                     contentClasses="bg-white mt-0 overflow-y-scroll h-32"
                     width="32"
                     align="left" 
@@ -120,7 +112,13 @@ const store = () => {
                             </div>
                         
                     </template>
-                </Dropdown>
+                </Dropdown> -->
+                <InputSelect 
+                    v-model="form.ubication"
+                    :options="ubications"
+                    propName="name"
+                    propValue="id"
+                />
                 <InputError class="mt-2" :message="form.errors.ubication" />
             </div>
         
@@ -132,24 +130,13 @@ const store = () => {
             />
             
            <div class="">
-                <Dropdown
-                    contentClasses="bg-white mt-0 overflow-y-scroll h-32"
-                    width="32"
-                    align="left" 
-                >
-                    <template #trigger>
-                        <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
-                            <div v-if="form.scheme_day != ''" class="text-sm truncate h-6 p-1">{{ selectObj(form.scheme_day, scheme_days) }}</div>
-                            <div v-else>Selecionar</div>
-                        </button>
-                    </template>
-                    <template #content>
-                            <div class="px-1" @click="form.scheme_day = scheme_day.id" v-for="(scheme_day) in scheme_days" :key="scheme_day.id">
-                                <div class="hover:bg-slate-200 cursor-pointer rounded-lg pl-2">{{scheme_day.name  }}</div>
-                            </div>
-                        
-                    </template>
-                </Dropdown>
+                
+                <InputSelect 
+                    v-model="form.scheme_day"
+                    :options="scheme_days"
+                    propName="name"
+                    propValue="id"
+                />
                 <InputError class="mt-2" :message="form.errors.scheme_day" />
             </div>
         
@@ -161,24 +148,13 @@ const store = () => {
             />
             
            <div class="">
-                <Dropdown
-                    contentClasses="bg-white mt-0 overflow-y-scroll h-32"
-                    width="32"
-                    align="left" 
-                >
-                    <template #trigger>
-                        <button type="button" class="p-1 border w-48 bg-white text-left rounded-md shadow-lg">
-                            <div v-if="form.scheme_hour != ''" class="text-sm truncate h-6 p-1">{{ selectObj(form.scheme_hour, scheme_hours) }}</div>
-                            <div v-else>Seleccione</div>
-                        </button>
-                    </template>
-                    <template #content>
-                            <div class="px-1" @click="form.scheme_hour = scheme_hour.id" v-for="(scheme_hour) in scheme_hours" :key="scheme_hour.id">
-                                <div class="hover:bg-slate-200 cursor-pointer rounded-lg pl-2">{{scheme_hour.name  }}</div>
-                            </div>
-                        
-                    </template>
-                </Dropdown>
+                
+                <InputSelect 
+                    v-model="form.scheme_hour"
+                    :options="scheme_hours"
+                    propName="name"
+                    propValue="id"
+                />
                 <InputError class="mt-2" :message="form.errors.scheme_hour" />
             </div>
         

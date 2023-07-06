@@ -43,6 +43,7 @@ class ClassroomController extends Controller
      */
     public function store(Request $request, Project $project)
     {
+        return 'hola';
         $classroom = new Classroom();
 
         $classroom->name = $request->name;

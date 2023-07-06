@@ -60,7 +60,7 @@
                     contentClasses=" bg-slate-200 p-2 "
                 >
                     <template #trigger>
-                        <div class="w-full bg-slate-200 p-2">
+                        <div class="w-full bg-slate-200 p-2 rounded-t-lg">
                             Agregar Nueva Aula
                             <span class="font-bold">+</span>
                         </div>
