@@ -7,7 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { selectObj, selectAll } from '@/utilidades';
 import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const props = defineProps({
     classrooms: {
@@ -34,8 +34,7 @@ const props = defineProps({
         type:Object,
         default:null
     },
-})
-
+});
 
 const form = useForm({
     name: '',
@@ -48,7 +47,7 @@ const form = useForm({
 
 const store = () => {
     form.post(route('project.classroom.store', props.project.slug), {
-        onFinish: () => form.reset(),
+        onSuccess: () => form.reset()
     })
 }
 </script>
@@ -68,7 +67,7 @@ const store = () => {
                 autofocus
             />
 
-            <InputError class="mt-2" :message="form.errors.name" />
+            <InputError class="mt-1" :message="form.errors.name" />
         </div>
         
         <div class="">
@@ -84,7 +83,7 @@ const store = () => {
                     propName="name"
                     propValue="id"
                 />
-                <InputError class="mt-2" :message="form.errors.classroom_type" />
+                <InputError class="mt-1" :message="form.errors.classroom_type" />
             </div>
         
         </div>
@@ -119,7 +118,7 @@ const store = () => {
                     propName="name"
                     propValue="id"
                 />
-                <InputError class="mt-2" :message="form.errors.ubication" />
+                <InputError class="mt-1" :message="form.errors.ubication" />
             </div>
         
         </div>
@@ -137,7 +136,7 @@ const store = () => {
                     propName="name"
                     propValue="id"
                 />
-                <InputError class="mt-2" :message="form.errors.scheme_day" />
+                <InputError class="mt-1" :message="form.errors.scheme_day" />
             </div>
         
         </div>
@@ -155,7 +154,7 @@ const store = () => {
                     propName="name"
                     propValue="id"
                 />
-                <InputError class="mt-2" :message="form.errors.scheme_hour" />
+                <InputError class="mt-1" :message="form.errors.scheme_hour" />
             </div>
         
         </div>

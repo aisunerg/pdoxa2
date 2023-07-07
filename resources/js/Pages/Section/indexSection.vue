@@ -4,6 +4,7 @@
     import { selectObj, relaciona } from '@/utilidades';
     import DropdownX from '@/Components/DropdownX.vue';
     import formSection from '@/Pages/Section/formSection.vue';
+import FormDropdown from '@/Components/myComponents/formDropdown.vue';
     
 
     const props = defineProps({
@@ -49,22 +50,16 @@
                             {{ $page.props.flash.message }}
                         </div>
                     </div>
-                    <div @click="$page.props.flash.message = null" class="bg-red-300 h-full rounded-r-lg pt-2 pr-2 pl-1 font-extrabold cursor-pointer">X</div>
+                    <div @click="$page.props.flash.message = null" class="bg-red-300 h-full rounded-r-lg py-2 pr-2 pl-1 font-extrabold cursor-pointer">X</div>
                 </div>
-                <DropdownX
-                    width="full"
-                    contentClasses=" bg-slate-200 p-2 "
-                >
+                <FormDropdown>
                     <template #trigger>
-                        <div class="w-full bg-slate-200 p-2">
-                            Agregar Nueva Seccion
-                            <span class="font-bold">+</span>
-                        </div>
+                        Agregar Nueva Seccion
                     </template>
                     <template #content>
                         <formSection :shifts="shifts" :subjects="subjects" :project="project" :teachers="teachers"/>
                     </template>
-                </DropdownX>
+                </formDropdown>
                 <div class="w-full h-full overflow-hidden rounded-lg shadow-xs">
                     <div class="w-full overflow-x-auto" style="height: 79.1%;">
                         <table class="w-full whitespace-no-wrap">

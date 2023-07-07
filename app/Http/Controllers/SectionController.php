@@ -40,10 +40,29 @@ class SectionController extends Controller
      */
     public function store(Request $request, Project $project)
     {
+        return $request;
+
+        $validated = $request->validate([
+            "name" => 'required|max:255',
+            "materia" => 'required',
+            "project" => 'required',
+            "quota" => 'required',
+            "shift_id" => 'required',
+            "profesor" => 'required'
+        ]);
+
+        $val = Section::where('subject_id', '=', $request->materia)
+        ->where('name', '=', $request->name)
+        ->first();
+
+        if ($val) {
+            return to_route('project.section.index', $project->slug)->with('message', 'ERROR: Ya existe una seccion con este nombre');
+        }
+        
         $section = new Section();
 
         $section->name = $request->name;
-        $section->subject_id = $request->subject;
+        $section->subject_id = $request->materia;
         $section->project_id = $project->id;
         $section->quota = $request->quota;
         $section->shift_id = $request->shift_id;
@@ -75,7 +94,7 @@ class SectionController extends Controller
         }
         
         if ($meetingComplete) {
-            $section->teacher()->attach($request->teacher_id);
+            $section->teacher()->attach($request->profesor);
             $teacherComplete = "Profesor Relacionado";
         }else {
             $section->delete();

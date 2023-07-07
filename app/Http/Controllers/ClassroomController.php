@@ -43,7 +43,16 @@ class ClassroomController extends Controller
      */
     public function store(Request $request, Project $project)
     {
-        return 'hola';
+        $validated = $request->validate([
+            "name" => 'required|max:255',
+            "project" => 'required',
+            "classroom_type" => 'required',
+            "ubication" => 'required',
+            "scheme_day" => 'required',
+            "scheme_hour" => 'required',
+        ]);
+        // return $request;
+        
         $classroom = new Classroom();
 
         $classroom->name = $request->name;

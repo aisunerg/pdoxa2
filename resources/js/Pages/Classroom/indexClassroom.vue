@@ -2,8 +2,8 @@
     import MyLayout from '@/Layouts/MyLayout.vue';
     import { Head, router, useForm } from '@inertiajs/vue3';
     import { selectObj, relaciona } from '@/utilidades';
-    import DropdownX from '@/Components/DropdownX.vue';
     import formClassroom from '@/Pages/Classroom/formClassroom.vue';
+    import FormDropdown from '@/Components/myComponents/formDropdown.vue';
     
 
     const props = defineProps({
@@ -55,20 +55,14 @@
                     </div>
                     <div @click="$page.props.flash.message = null" class="bg-red-300 h-full rounded-r-lg pt-2 pr-2 pl-1 font-extrabold cursor-pointer">X</div>
                 </div>
-                <DropdownX
-                    width="full"
-                    contentClasses=" bg-slate-200 p-2 "
-                >
+                <FormDropdown>
                     <template #trigger>
-                        <div class="w-full bg-slate-200 p-2 rounded-t-lg">
-                            Agregar Nueva Aula
-                            <span class="font-bold">+</span>
-                        </div>
+                        Agregar Nueva Aula
                     </template>
                     <template #content>
                         <formClassroom :classrooms="classrooms" :classroom_types="classroom_types" :ubications="ubications" :scheme_days="scheme_days" :scheme_hours="scheme_hours" :project="project"/>
                     </template>
-                </DropdownX>
+                </formDropdown>
                 <div class="w-full overflow-hidden rounded-lg shadow-xs">
                     <div class="w-full overflow-x-auto">
                         <table class="w-full whitespace-no-wrap">
