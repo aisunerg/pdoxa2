@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Career;
+use App\Models\Departament;
 use App\Models\Pensum;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -36,6 +37,8 @@ class PensumController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $pensum = new Pensum();
 
         $pensum->name = $request->name;
@@ -54,8 +57,9 @@ class PensumController extends Controller
     {
         // return Subject::where('pensum_id', $pensum->id)->get();
         return inertia('Pensum/showPensum',[
-            'pensum' => $pensum,
-            'subjects' => Subject::where('pensum_id', $pensum->id)->get()
+            'pensum' => Pensum::find($pensum->id)->with('career')->get(),
+            'subjects' => Subject::where('pensum_id', $pensum->id)->with('departament')->get(),
+            'departaments' => Departament::all(),
         ]);
     }
 

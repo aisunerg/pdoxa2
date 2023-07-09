@@ -15,6 +15,7 @@ class ProjectController extends Controller
 {
     public function selectProject(Project $project){
         session(['project' => $project]);
+        session(['pensum' => Pensum::find($project->pensum_id)]);
 
         $classrooms = Classroom::where('project_id', $project->id)->get();
         $blocks = 0;

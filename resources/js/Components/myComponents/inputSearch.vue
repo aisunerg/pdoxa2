@@ -23,6 +23,10 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    defaultValue: {
+        type: String,
+        default: null,
+    },
 });
 
 let searchQuery = ref(null);
@@ -63,6 +67,11 @@ const alignmentClasses = computed(() => {
         return 'origin-top';
     }
 });
+
+if (props.defaultValue) {
+    let varia = props.options.find((o => o.id == props.defaultValue)) ;
+    searchQuery.value = varia.name;    
+}
 
 </script>
 
@@ -134,6 +143,5 @@ const alignmentClasses = computed(() => {
         </div>
     </div>
     
-    <!-- style="display: none" -->
 
 </template>

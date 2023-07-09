@@ -5,7 +5,9 @@
     import DropdownX from '@/Components/DropdownX.vue';
     import formDay from '@/Pages/Day/formDay.vue';
     import Back from '@/Components/myComponents/Back.vue';
-import { computed } from 'vue';
+    import { computed } from 'vue';
+    import FormDropdown from '@/Components/myComponents/formDropdown.vue';
+    import FormSubject from '../Subject/formSubject.vue';
     
 
     const props = defineProps({
@@ -14,6 +16,10 @@ import { computed } from 'vue';
             default:null
         },
         subjects:{
+            type: Object,
+            default: null
+        },
+        departaments:{
             type: Object,
             default: null
         }
@@ -36,12 +42,14 @@ import { computed } from 'vue';
         <template #header>
                 <!-- <Back :href="$page.props.urlPrev">volver</Back> -->
                 <div class="content-center">
-                        Pensum: {{ pensum.name }}
+                        Pensum: {{ $page.props.sPensum.name }}
                 </div>
         </template>
+
         <div class="flex flex-col">
-            <div class="">Regimen: {{ pensum.regime }}</div>
+            <div class="">Regimen: {{ $page.props.sPensum.regime }}</div>
         </div>
+
         <div v-if="$page.props.flash.message" class="flex">
             <div class="border-4 p-0 border-red-300 bg-red-300 w-full rounded-l-lg">
                 <div class="w-full pl-2 bg-white rounded-lg py-1">
@@ -50,9 +58,18 @@ import { computed } from 'vue';
             </div>
             <div @click="$page.props.flash.message = null" class="bg-red-300 h-full rounded-r-lg pt-2 pr-2 pl-1 font-extrabold cursor-pointer">X</div>
         </div>
+
+        <FormDropdown>
+            <template #trigger>
+                Agregar Materia
+            </template>
+            <template #content>
+                <FormSubject :departaments="departaments" :pensum="$page.props.sPensum" />
+            </template>
+        </FormDropdown>
         
         <div class="w-full h-full rounded-lg shadow-xs">
-            <div class="w-full overflow-x-auto" style="height: 79.3%;">
+            <div class="w-full overflow-x-auto" style="height: 77.3%;">
                 <table class="w-full whitespace-no-wrap">
                     <thead class="sticky top-0">
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -60,6 +77,7 @@ import { computed } from 'vue';
                             <th class="px-4 py-3">U.C.</th>
                             <th class="px-4 py-3">Horas</th>
                             <th class="px-4 py-3">Semestre</th>
+                            <th class="px-4 py-3">Departamento</th>
                             <th class="px-4 py-3">Acciones</th> 
                                                     
                         </tr>
@@ -78,6 +96,9 @@ import { computed } from 'vue';
                             </td>
                             <td class="px-4 py-3 " >
                                 {{ subject.level }}
+                            </td>
+                            <td class="px-4 py-3 " >
+                                {{ subject.departament.name }}
                             </td>
                                                                                                     
 

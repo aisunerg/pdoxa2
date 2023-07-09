@@ -51,6 +51,9 @@ class HandleInertiaRequests extends Middleware
 		    },
             'sProject' => function() use ($request) {
                 return session('project');
+            },
+            'sPensum' => function() use ($request) {
+                return session('pensum');
             }
         ]);
     }

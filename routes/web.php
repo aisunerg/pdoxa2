@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     //DASHBOARD 
     Route::get('/myDash', function (){
         session(['project' => null]);
+        session(['pensum' => null]);
         return Inertia::render('MyDashboard', [
             'projects' => Project::with('pensum')->get(),
         ]);

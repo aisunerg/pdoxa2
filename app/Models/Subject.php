@@ -13,4 +13,9 @@ class Subject extends Model
     {
         return $this->hasMany(Meeting::class);
     }
+
+    public function departament()
+    {
+        return $this->belongsTo(Departament::class);
+    }
 }

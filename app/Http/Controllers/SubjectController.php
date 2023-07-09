@@ -34,6 +34,18 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validated = $request->validate([
+            "code" => 'required|max:10',
+            "name" => 'required|max:60',
+            "avr" => 'required|max:12',
+            "u_c" => 'required|numeric',
+            "h_s" => 'required|numeric',
+            "pensum" => 'required|numeric',
+            "level" => 'required|numeric',
+            "departament" => 'required|numeric',
+        ]);
+
         $subject = new Subject();
 
         $subject->code = $request->code;

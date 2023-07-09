@@ -24,7 +24,7 @@
 </script>
 
 <template>
-<td v-if="section != null" class="text-sm px-1">
+<td v-if="section != null" class="text-sm px-1 pb-2">
     <span>{{ section.teacher[0].name+" "+section.teacher[0].lastname }}</span>
     <div v-for="meeting in section.meetings" >
         {{encuentro(meeting.pivot.id)}}

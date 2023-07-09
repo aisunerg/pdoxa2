@@ -20,7 +20,7 @@ class SectionController extends Controller
     {
         return inertia('Section/indexSection',[
             'project' => $project,
-            'sections' => Section::with('teacher')->where('project_id', $project->id)->get(),
+            'sections' => Section::with('teacher')->with('subject')->where('project_id', $project->id)->get(),
             'shifts' => Shift::all(),
             'subjects' => Subject::where('pensum_id', $project->pensum_id)->orderBy('level')->get(), 
             'teachers' => Teacher::where('id', 'LIKE', '%%')->orderBy('name')->get(), 
@@ -40,15 +40,14 @@ class SectionController extends Controller
      */
     public function store(Request $request, Project $project)
     {
-        return $request;
 
         $validated = $request->validate([
             "name" => 'required|max:255',
-            "materia" => 'required',
-            "project" => 'required',
-            "quota" => 'required',
-            "shift_id" => 'required',
-            "profesor" => 'required'
+            "materia" => 'required|numberic',
+            "project" => 'required|numberic',
+            "quota" => 'required|numberic',
+            "shift_id" => 'required|numberic',
+            "profesor" => 'required|numberic|nullable'
         ]);
 
         $val = Section::where('subject_id', '=', $request->materia)
@@ -80,7 +79,7 @@ class SectionController extends Controller
             foreach ($subject->meetings as $meeting) {
                 $section->meetings()->attach($meeting->id);
             }
-            $meetingComplete = "Encuentro Relacionado";//MeetingSectionController::keep($section->id, $section->subject_id);
+            $meetingComplete = "Encuentro Relacionado";
         } catch (\Illuminate\Database\QueryException $e) {
             // Manejo de la excepción
             $section->delete();
@@ -93,12 +92,16 @@ class SectionController extends Controller
             }
         }
         
-        if ($meetingComplete) {
-            $section->teacher()->attach($request->profesor);
-            $teacherComplete = "Profesor Relacionado";
-        }else {
+        if (!$meetingComplete) {
             $section->delete();
             return to_route('project.section.index', $project->slug)->with('message', 'No existen encuentros para esta materia');
+        }
+
+        if ($request->profesor) {
+            $section->teacher()->attach($request->profesor);
+            $teacherComplete = "Profesor Relacionado";
+        }else{
+            $teacherComplete = "Profesor por asignar";
         }
 
         
@@ -126,7 +129,7 @@ class SectionController extends Controller
      */
     public function update(Request $request, Section $section)
     {
-        //
+        return 'hola';
     }
 
     /**

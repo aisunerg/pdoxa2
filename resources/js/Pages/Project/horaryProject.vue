@@ -1,8 +1,9 @@
 <script setup>
     import MyLayout from '@/Layouts/MyLayout.vue';
     import { Head, Link } from '@inertiajs/vue3';
-    import horaryCell from '@/Components/myComponents/horaryCell.vue'
+    import horaryCell from '@/Components/myComponents/horaryCell.vue';
     import { computed, ref } from 'vue';
+    import html2pdf from 'html2pdf.js'
 
     const props = defineProps({
         project: {
@@ -96,6 +97,22 @@
         semester.value = semestre;        
         return ;
     }
+
+    function imprimir(id){
+        let el = document.getElementById(id);
+
+        var opt = {
+            margin:       0.1,
+            filename:     'Horario.pdf',
+            scale: 1.0,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 3 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
+        };
+
+        html2pdf().from(el).set(opt).save();
+    }
+
 </script>
 
 <template>
@@ -110,7 +127,11 @@
 
     <div class="overflow-auto w-full" style="height: 83%;">
         <div v-for="semestre in semestres" :key="semestre">
-            <!-- <div class="flex justify-end mr-5 relative"><div class="absolute bottom-0 left-0">PDF de Semestre-{{ semestre }}</div></div> -->
+            <div class="flex justify-end mr-5 h-6 ">
+                <div class="relative">
+                    <div @click="imprimir('semestre-'+semestre) " class="absolute top-8 right-1 bg-purple-300 px-2 rounded-md cursor-pointer">boton</div>
+                </div>
+            </div>
             <table class="w-full whitespace-no-wrap" :id="'semestre-'+semestre">
                 <thead>
                     <tr class="bg-white rounded-t-lg"><!-- Encabezado -->
@@ -131,7 +152,7 @@
                     <tr class="border-2"><!-- Titulo -->
                         <td colspan="9">
                             <span class="block text-center font-bold">Resumen de Horarios Semanales</span>
-                            <span class="block text-center font-bold">{{ semestre }}° Semestre</span>
+                            <span class="block text-center font-bold mb-1.5">{{ semestre }}° Semestre</span>
                         </td>
                     </tr>
     
@@ -156,6 +177,7 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="w-full h-20"></div>
         </div>
     </div>     
   </MyLayout>

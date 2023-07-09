@@ -25,10 +25,10 @@
         <div class="flex flex-col h-full w-full">
             <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
                 <div
-                class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
+                class="container flex items-center justify-end h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
                 >
                 <!-- Search input -->
-                <div class="flex justify-center flex-1 lg:mr-32">
+                <!-- <div class="flex justify-center flex-1 lg:mr-32">
                     <div
                     class="relative w-full max-w-xl mr-6 focus-within:text-purple-500"
                     >
@@ -48,7 +48,7 @@
                         aria-label="Search"
                     />
                     </div>
-                </div>
+                </div> -->
                 <ul class="flex items-center flex-shrink-0 space-x-6">
                     <!-- Notifications menu -->
                     <li class="relative">

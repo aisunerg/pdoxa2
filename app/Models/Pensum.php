@@ -13,4 +13,6 @@ class Pensum extends Model
     {
         return $this->belongsTo(Career::class);
     }
+
+    
 }
