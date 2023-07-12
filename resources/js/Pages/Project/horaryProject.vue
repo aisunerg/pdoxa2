@@ -1,9 +1,8 @@
 <script setup>
     import MyLayout from '@/Layouts/MyLayout.vue';
-    import { Head, Link } from '@inertiajs/vue3';
+    import { Head, Link, usePage } from '@inertiajs/vue3';
     import horaryCell from '@/Components/myComponents/horaryCell.vue';
     import { computed, ref } from 'vue';
-    import html2pdf from 'html2pdf.js'
 
     const props = defineProps({
         project: {
@@ -25,7 +24,6 @@
 
     });
 
-    console.log(props.blocks);
 
     let semestres = [1,2,3,4,5,6,7,8,9,10];
     let secNames = (semester) => {
@@ -52,8 +50,10 @@
 
             // los nombres son iguales
             return 0;
-        })
+        });
     }
+
+    
 
     let nameSections = ref(null);
     let secName = (ref(null));
@@ -98,12 +98,14 @@
         return ;
     }
 
-    function imprimir(id){
-        let el = document.getElementById(id);
+    const page = usePage();
+    const imprimir = async (id) => {
+      const { default: html2pdf } = await import('html2pdf.js');
+      let el = document.getElementById(id);
 
         var opt = {
             margin:       0.1,
-            filename:     'Horario.pdf',
+            filename:      page.props.sProject.name+"-"+id+'.pdf',
             scale: 1.0,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 3 },
@@ -111,7 +113,7 @@
         };
 
         html2pdf().from(el).set(opt).save();
-    }
+    };
 
 </script>
 
@@ -125,8 +127,8 @@
     </template>
     <div class="border-b-2 border-black shadow-none mb-2"></div>
 
-    <div class="overflow-auto w-full" style="height: 83%;">
-        <div v-for="semestre in semestres" :key="semestre">
+    <div class="overflow-auto w-full" style="height: 83%;" id="semestres">
+        <div v-for="semestre in semestres" :key="semestre" >
             <div class="flex justify-end mr-5 h-6 ">
                 <div class="relative">
                     <div @click="imprimir('semestre-'+semestre) " class="absolute top-8 right-1 bg-purple-300 px-2 rounded-md cursor-pointer">boton</div>

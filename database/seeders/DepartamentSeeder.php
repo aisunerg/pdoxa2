@@ -23,25 +23,25 @@ class DepartamentSeeder extends Seeder
         ]);
         Departament::create([
             'name' => "Ciencias Basicas",
-            'adress_id' =>	null,
+            'adress_id' =>	1,
             'teacher_id' => null,
             'avr' => "DCB"    
         ]);
         Departament::create([
             'name' => "Ciencias de la Computación",
-            'adress_id' =>	null,
+            'adress_id' =>	2,
             'teacher_id' => null,
             'avr' => "DCC"    
         ]);
         Departament::create([
             'name' => "Formación Profesional",
-            'adress_id' =>	null,
+            'adress_id' =>	2,
             'teacher_id' => null,
             'avr' => "DFP"    
         ]);
         Departament::create([
             'name' => "Cs Basicas",
-            'adress_id' =>	null,
+            'adress_id' =>	4,
             'teacher_id' => null,
             'avr' => "DEG"    
         ]);

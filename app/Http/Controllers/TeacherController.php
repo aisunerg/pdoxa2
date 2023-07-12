@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\Block;
+use App\Models\Departament;
+use App\Models\Section;
 use App\Models\Municipy;
 use App\Models\State;
 use App\Models\Teacher;
@@ -10,9 +13,35 @@ use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+    
+    public function horaryTeachers()
+    {
+        $project = session('project');
+
+
+        $teachers = Teacher::with('sections')
+        ->whereHas('sections', function ($query) use ($project) {
+            $query->where('project_id', $project->id);
+        })->with('sections.subject')->with('sections.meetings')->get();
+
+        $blocks = Block::whereNotNull('meeting_section_id')
+        ->whereHas('classrooms', function($query) use ($project) {
+            $query->where('project_id', $project->id);
+        })
+        ->with('day')
+        ->with('hour')
+        ->with('classrooms')
+        ->get();
+
+        return inertia('Teacher/horaryTeachers', [
+            'teachers' => $teachers,
+            'departaments' => Departament::with('adress')->get(),
+            'blocks' => $blocks,
+        ]);
+    }
+
+
     public function index()
     {
         return inertia('Teacher/indexTeacher',[

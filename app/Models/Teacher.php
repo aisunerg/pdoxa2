@@ -23,8 +23,8 @@ class Teacher extends Model
     }
 
     //MUCHOS A MUCHOS
-    public function secciones()
+    public function sections()
     {
-        return $this->belongsToMany('App/Models/Section', 'teacher_sections');
+        return $this->belongsToMany(Section::class, 'teacher_sections');
     }
 }

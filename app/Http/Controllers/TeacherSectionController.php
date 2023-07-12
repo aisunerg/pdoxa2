@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Teacher;
 use App\Models\teacher_section;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,12 @@ class TeacherSectionController extends Controller
 
         $teachsec->section_id = $section;
         $teachsec->teacher_id = $teacher;
+
         $teachsec->save();
 
         return "Profesor Vinculado";
     }
+
 
     public function index()
     {

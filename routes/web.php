@@ -109,7 +109,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('municipy', MunicipyController::class);
 
     //TEACHER
+    Route::get('teacher/horary', [TeacherController::class, 'horaryTeachers'])->name('teachers.horary');
     Route::resource('teacher', TeacherController::class);
+
 
     //ADRESS
     Route::resource('adress', AdressController::class);
