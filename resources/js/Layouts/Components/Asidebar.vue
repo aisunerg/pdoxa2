@@ -5,6 +5,7 @@
     import Dropdown from "@/Components/Dropdown.vue";
     import {router, Link} from "@inertiajs/vue3";
     import {ref} from 'vue';
+    import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 
     defineProps({
         project: {
@@ -25,7 +26,7 @@
             <Link
             class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
                 :href="route('mydash')"
-            >
+            ><ApplicationLogo class="w-5 h-5 inline fill-current text-gray-500 " />
             pDoxa
             </Link>
             

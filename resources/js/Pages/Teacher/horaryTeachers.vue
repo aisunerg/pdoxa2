@@ -3,6 +3,7 @@
     import { Head, Link, usePage } from '@inertiajs/vue3';
     import horaryCell from '@/Components/myComponents/horaryCell.vue';
     import { computed, ref } from 'vue';
+    import html2pdf from 'html2pdf.js'
 
     const props = defineProps({
         teachers: {
@@ -83,17 +84,13 @@
     }
     
 
-    const imprimir = async (teacher) => {
-      const { default: html2pdf } = await import('html2pdf.js');
+    const imprimir = (teacher) => {
 
-      
-
-
-      let el = document.getElementById('teacher'+teacher.id);
+      let el = document.getElementById('teacher-'+teacher.id);
 
         var opt = {
             margin:       0.1,
-            filename:     'Horarioprof.pdf',
+            filename:     'Horario-'+teacher.name+'-'+teacher.lastname+'.pdf',
             scale: 1.0,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 3 },
@@ -142,7 +139,7 @@
   
         
       </div>
-      <div class="bg-purple-300">Importar Todos</div>
+      <div class="bg-purple-300"></div>
     </div>
 
 
