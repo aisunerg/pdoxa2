@@ -25,17 +25,19 @@
     const page = usePage();
 
     let selQuery = ref(null);
+    /* filtra los profesores mostrados segun la barra de busqueda */
     const selTeachers = computed(() => {
-  if (selQuery.value != null) {
-      return props.teachers.filter(option => {
-        return option.name.toLowerCase().includes(selQuery.value.toLowerCase());
-      });
-    } else {
-      return props.teachers;
-    }
+      if (selQuery.value != null) {
+        return props.teachers.filter(option => {
+          return option.name.toLowerCase().includes(selQuery.value.toLowerCase());
+        });
+      }else{
+        return props.teachers;
+      }
   });
     
     let deps = ref(null);
+    /* retorna los departamentos a los que estan asignadas las materias de las secciones del profesor */
     function filtrarDep(sections){
 
       let selDeps = [];
@@ -47,6 +49,7 @@
     }
 
     let meets = ref(null);
+    /* retorna los encuentros asignados al profesor */
     function filtrarMeets(sections) {
       let aMeets = [];
       
@@ -83,7 +86,7 @@
         
     }
     
-
+    //Generar exportacion a PDF
     const imprimir = (teacher) => {
 
       let el = document.getElementById('teacher-'+teacher.id);

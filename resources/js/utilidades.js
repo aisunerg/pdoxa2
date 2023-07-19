@@ -1,3 +1,8 @@
+/*  
+    busca en un array de objetos el que tenga una 
+    propiedad "id" igual al parametro del mismo nombre 
+    y retorna la propiedad "name" del objeto que coincida
+*/
 export const selectObj = (id, array) => {
     let val = array.find(e => e.id === id);
     return (val) ? val.name: null;
@@ -9,6 +14,7 @@ export const selectAll = (id, array) => {
     return val.name+" "+val.lastname
 }
 
+//envia un formulario a una ruta que recibe post
 export function store(link, form) {
     form.post(route(link));
 }

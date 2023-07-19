@@ -6,7 +6,7 @@
     import { selectObj } from '@/utilidades';
     import { onMounted, ref, watch } from 'vue';
     import classBlocks from '@/Pages/Master/classBlocks.vue';
-import Modal from '@/Components/Modal.vue';
+    import Modal from '@/Components/Modal.vue';
         
     const props = defineProps({
         subjects: {
@@ -40,25 +40,23 @@ import Modal from '@/Components/Modal.vue';
 
     let selectC = ref(null);
     let page = usePage();
-    
-    
-    
-
 
     let selClassroom = ref(null);
     var selHours =ref(null);
 
+    //Retorna las horas asociados al esquema de hora del aula a mostrar
     function selHour(schemeH_id) {
         let hours = props.hours.filter(e => e.scheme_hour_id == schemeH_id)
         return hours;
     }
 
+    //Retorna los dias asociados al esquema de dia del aula a mostrar
     function selDay(schemeD_id) {
         let days = props.days.filter(e => e.scheme_day_id == schemeD_id)
         return days;
     }
 
-    
+    //Cierra el modal
     function close() {
         console.log("cerrar");
         page.props.flash.message = null;

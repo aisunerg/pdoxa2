@@ -50,6 +50,7 @@ import { ref } from 'vue';
 
     let showEdit = ref(false);
     let secEdit = ref(null);
+    /* Seleccionar seccion para editar y mostrar u ocultar modal */
     function editar(sec = null) {
         
         if(sec){

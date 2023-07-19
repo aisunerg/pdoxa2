@@ -43,7 +43,7 @@ import { ref, watch } from 'vue';
     let type = null;
     let limit = null;
 
-
+    //retorna el bloque que coincida con el dia y la hora ingresados
     let block = function (aClassroom, aDay, aHour){        
         
         aBlock = props.blocks.find(b =>{return b.classroom_id == aClassroom.id && b.day_id == aDay && b.hour_id == aHour} );
@@ -53,6 +53,7 @@ import { ref, watch } from 'vue';
             let meeting = aSection.meetings.find(m => {return m.id == meet_id});
             type = null;
             
+            //Aqui establece el valor de la variable "type" la cual determina el tipo de diseño que tendra el bloque
             if (oldB == null) {
                 if (meeting.hour_amount == 1) {
                     type = 0; //Individual
@@ -76,14 +77,14 @@ import { ref, watch } from 'vue';
                 
                 if (aBlock.meetsec.id == oldB.meetsec.id && aBlock.meetsec.meeting_id == oldB.meetsec.meeting_id) {
                     if (limit == 1) {
-                        type = 3
+                        type = 3; //Final
                     }else{
-                        type = 2;
+                        type = 2; //Centro
                         limit = limit - 1;
                     }
                 }else{
                     if (meeting.hour_amount > 1) {
-                        type = 1;
+                        type = 1; //Inicio
                         limit = meeting.hour_amount - 1
                     }else{
                             type = 0; //Individual
@@ -91,9 +92,6 @@ import { ref, watch } from 'vue';
                 }                
 
             }
-            // console.log("Bloque "+aBlock);
-            // console.log("Bloque Viejo "+oldB);
-            // console.log(type);
             
         }else{
             aSection = null;

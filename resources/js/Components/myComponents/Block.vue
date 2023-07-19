@@ -30,24 +30,7 @@ import Trash from './Trash.vue';
         },
     });
 
-    let titleB = "";
-    let bodyB = " ";
-    switch (props.type) {
-        case 1:
-            titleB+=" ";
-            bodyB += " ";
-            break;
-        case 2:
-            bodyB = "dos  ";
-            break;
-        case 3:     
-            bodyB = "";
-            break;
-
-        default:
-            titleB+=" bg-red-200";
-            break;
-    }
+    
 
     let active = ref("bg-neutral-200 ");
     const zone = (val) => {
@@ -70,9 +53,6 @@ import Trash from './Trash.vue';
         zone(false)
         form.post(route('master.assigment'));
 
-        // const card = document.getElementById(card_id);
-        // card.style.display = 'block';
-        // e.target.appendChild(card);
     }
 
     let grabbed = ref(null);
@@ -80,13 +60,13 @@ import Trash from './Trash.vue';
         e.dataTransfer.clearData();
         e.dataTransfer.setData('move', true);        
         e.dataTransfer.setData('meetsec', props.block.meeting_section_id);        
-        // e.dataTransfer.setData('meet', props.meeting.id);
         e.dataTransfer.setData('block', props.block.id);
     }
 
 </script>
 
 <template>
+    <!-- Determina si el bloque tiene un encuentro asignado y el tipo de diseño que tendra -->
     <div v-if="block.meeting_section_id != null && type == 1"
         :id="block.id"
         class='rounded-lg border-2 border-purple-200 flex flex-col w-11/12 text-purple-800 absolute top-1 left-2 z-30 bg-white cursor-grab'
@@ -127,8 +107,7 @@ import Trash from './Trash.vue';
     >
     </div>
     
-    
-
+    <!-- Si no tiene encuentro asignado -->
     <div v-else
         class="rounded-lg flex flex-col h-full w-full"
         :class="active"

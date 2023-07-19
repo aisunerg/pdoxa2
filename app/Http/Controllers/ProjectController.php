@@ -14,12 +14,14 @@ use Inertia\Inertia;
 class ProjectController extends Controller
 {
     public function selectProject(Project $project){
+        //Se establecen la variables de sesion
         session(['project' => $project]);
         session(['pensum' => Pensum::find($project->pensum_id)]);
 
         $classrooms = Classroom::where('project_id', $project->id)->get();
         $blocks = 0;
         $freeBlocks = 0;
+        //Se establecen los bloques existentes y libres
         foreach ($classrooms as $classroom) {
             $aBlocks = Block::where('classroom_id', $classroom->id)->get();
             $fBlocks = array_filter($aBlocks->toArray(), function($var){
